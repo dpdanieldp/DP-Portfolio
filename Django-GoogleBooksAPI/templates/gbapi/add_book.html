@@ -1,0 +1,137 @@
+{% extends "./base.html" %}
+
+{% block title %}Dodaj książkę{% endblock %}
+{% block content %}
+
+<div class="card-deck  p-4" >
+    <div class="card border-primary ">
+        <div class="card-header bg-transparent border-primary ">
+            <h1 align="center" class="text-dark">Twój internetowy księgozbiór</h1>
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+                <li class="list-group-item list-group-item-primary">
+                   <h4 align="center">Dodaj ksiażkę</h4>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <div class="row">
+
+                        <div class="col-lg">
+
+                            <a href="/" id="addBook" class="btn btn-primary btn-sm float-left">Strona główna</a>
+
+                            <a href="/import-from-API" id="importFromAPI" class="btn btn-primary btn-sm float-right">Importuj książki z Google Books</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                <p><small>Pola oznaczone * są obowiązkowe.
+                    <br>
+                    Jeśli jest więcej niż jeden autor- oddziel ich nazwiska średnikiem ;</small></p>
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="form-row align-items-center">
+                        <div class="col-auto my-1">
+                            <label for="addTitle" class="text-dark">Tytuł*:</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="addTitle"
+                                       name="addTitle" placeholder="Tytuł" aria-label="Tytuł">
+                            </div>
+                        </div>
+                        <div class="col-auto my-1">
+                            <label for="addAuthor" class="text-dark">Autor*:</label>
+                            <input type="text" class="form-control" id="addAuthor"
+                                   name="addAuthor" placeholder="Autor" aria-label="Autor">
+                        </div>
+                        <div class="col-auto my-1">
+                            <label for="addPubDate">Data publikacji*:</label>
+                            <input type="date" class="form-control" id="addPubDate"
+                                   name="addPubDate"  aria-label="Data publikacji">
+                        </div>
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-auto my-1">
+                            <label for="addIsbn">ISBN*:</label>
+                            <input type="text" class="form-control" id="addIsbn"
+                                   name="addIsbn" placeholder="ISBN tylko cyfry lub x" aria-label="ISBN">
+                        </div>
+
+                    </div>
+                    <div class="form-row align-items-center">
+                        <div class="col-auto my-1">
+                            <label for="addPageCount">Liczba stron*:</label>
+                            <input type="number" class="form-control" id="addPageCount"
+                                   name="addPageCount" placeholder="L. stron" aria-label="liczba stron" step="1" min="0">
+                        </div>
+                        <div class="col-auto my-1">
+                            <label for="addLinkToCover">Link do okładki:</label>
+                            <input type="url" class="form-control" id="addLinkToCover"
+                                   name="addLinkToCover" placeholder="Link" aria-label="link do okładki">
+                        </div>
+                        <div class="col-auto my-1">
+                            <label for="addLanguage" class="text-dark">Język*:</label>
+                            <input type="text" class="form-control" id="addLanguage"
+                                   name="addLanguage" placeholder="Język" aria-label="Język">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-lg">
+                            <button class="btn btn-primary float-right" name="addBook" value="addBook" type="submit">Dodaj</button>
+                        </div>
+                    </div>
+                </form>
+            </li>
+                {% if empty_table %}
+                <li class="list-group-item list-group-item">
+                    <h6 align="center">Twoja kolekcja książek jest pusta</h6>
+                </li>
+                {% else %}
+                <div class="table-responsive "  style="height: 200px">
+
+                    <table class="table table-hover table-sm" id="myTable6">
+                        <thead>
+                        <tr>
+                            <th scope="col" onclick="sortTable('myTable6',0)">Tytuł</th>
+                            <th scope="col" onclick="sortTable('myTable6',1)">Autor</th>
+                            <th scope="col" onclick="sortTable('myTable6',2)">Data publikacji</th>
+                            <th scope="col" onclick="sortTable('myTable6',3)">ISBN</th>
+                            <th scope="col" onclick="sortTable('myTable6',4)">L. stron</th>
+                            <th scope="col" onclick="sortTable('myTable6',5)">Okładka</th>
+                            <th scope="col" onclick="sortTable('myTable6',6)">Język</th>
+                            <th scope="col" >Edytuj</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for book in books %}
+                        <tr>
+                            <td><b>{{ book.title }}</b></td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.publication_date| date:"Y-m-d" }}</td>
+                            <td>{{ book.isbn }}</td>
+                            <td>{{ book.page_count }}</td>
+                            <td>{% if book.link_to_cover == '---' %}
+                                ---
+                                {% else %}
+                                <a href="{{book.link_to_cover}}" target="_blank">link</a>
+                                {% endif %}
+                            </td>
+                            <td>{{ book.publication_language }}</td>
+                            <td><a href="/edit-book/{{ book.id }}" >Edytuj</a></td>
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </ul>
+
+
+
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

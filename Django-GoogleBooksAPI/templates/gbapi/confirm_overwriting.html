@@ -1,0 +1,136 @@
+{% extends "./base.html" %}
+
+{% block title %}Edytuj książkę{% endblock %}
+{% block content %}
+
+<div class="card-deck  p-4" >
+    <div class="card border-primary ">
+        <div class="card-header bg-transparent border-primary ">
+            <h1 align="center" class="text-dark">Twój internetowy księgozbiór</h1>
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+                <li class="list-group-item list-group-item-warning">
+                    <h4 align="center">Potwierdź zapisanie danych</h4>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <div class="row">
+                        <div class="col-lg">
+                            <a href="/" id="addBook" class="btn btn-primary btn-sm float-left">Strona główna</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <h5 align="center">W bazie danych znajdują się już pozycje o podanym ISBN. Czy chcesz nadpisać istniejące pozycje?</h5>
+                    <br>
+                    <div class="row">
+
+                        <div class="col-lg">
+                            <a href="/" id="addBook" class="btn btn-primary btn-sm float-left">Odrzuć wszystkie</a>
+                            <form method="post">
+                                {% csrf_token %}
+                            <button class="btn btn-primary btn-sm float-right" name="overwriteAll" value="overwriteAll" type="submit">Zapisz wszystkie</button>
+                            </form>
+                        </div>
+                    </div>
+                        <br>
+                    <ul class="list-group" >
+                <li class="list-group-item list-group-item-light">
+                    <h5 align="center">Dane obecne w bazie:</h5>
+                    <div class="table-responsive "  style="height: 200px">
+                        <table class="table table-hover table-sm" id="myTable4">
+                            <thead>
+                            <tr>
+                                <th scope="col" onclick="sortTable('myTable4',0)">Tytuł</th>
+                                <th scope="col" onclick="sortTable('myTable4',1)">Autor</th>
+                                <th scope="col" onclick="sortTable('myTable4',2)">Data publikacji</th>
+                                <th scope="col" onclick="sortTable('myTable4',3)">ISBN</th>
+                                <th scope="col" onclick="sortTable('myTable4',4)">L. stron</th>
+                                <th scope="col" onclick="sortTable('myTable4',5)">Okładka</th>
+                                <th scope="col" onclick="sortTable('myTable4',6)">Język</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for book in data_in_db %}
+                            <tr>
+                                <td><b>{{ book.title }}</b></td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.publication_date| date:"Y-m-d" }}</td>
+                                <td>{{ book.isbn }}</td>
+                                <td>{{ book.page_count }}</td>
+                                <td>{% if book.link_to_cover == '---' %}
+                                    ---
+                                    {% else %}
+                                    <a href="{{book.link_to_cover}}" target="_blank">link</a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ book.publication_language }}</td>
+
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-dark">
+                </li>
+                <li class="list-group-item list-group-item-light">
+                <h5 align="center">Nowe dane:</h5>
+
+                    <div class="table-responsive "  style="height: 200px">
+
+                        <table class="table table-hover table-sm" id="myTable5">
+                            <thead>
+                            <tr>
+
+                                <th scope="col" onclick="sortTable('myTable5',0)">Tytuł</th>
+                                <th scope="col" onclick="sortTable('myTable5',1)">Autor</th>
+                                <th scope="col" onclick="sortTable('myTable5',2)">Data publikacji</th>
+                                <th scope="col" onclick="sortTable('myTable5',3)">ISBN</th>
+                                <th scope="col" onclick="sortTable('myTable5',4)">L. stron</th>
+                                <th scope="col" onclick="sortTable('myTable5',5)">Okładka</th>
+                                <th scope="col" onclick="sortTable('myTable5',6)">Język</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% load index %}
+                            {% for i in range %}
+                            <tr>
+
+                                <td><b>{{ books_info_d.add_title|index:forloop.counter0 }}</b></td>
+                                <td>{{ books_info_d.add_author|index:forloop.counter0 }}</td>
+                                <td>{{ books_info_d.add_pub_date|index:forloop.counter0 }}</td>
+                                <td>{{ books_info_d.clean_isbn|index:forloop.counter0 }}</td>
+                                <td>{{ books_info_d.add_page_count|index:forloop.counter0 }}</td>
+                                <td>{% if books_info_d.add_link_to_cover|index:forloop.counter0 == '---' %}
+                                    ---
+                                    {% else %}
+                                    <a href="{{ books_info_d.add_link_to_cover|index:forloop.counter0 }}" target="_blank">link</a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ books_info_d.add_language|index:forloop.counter0 }}</td>
+
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </li>
+                </li>
+
+
+            </ul>
+                </ul>
+
+
+
+
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}
