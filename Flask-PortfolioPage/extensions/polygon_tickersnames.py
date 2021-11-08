@@ -6,51 +6,15 @@ from datetime import datetime
 
 
 def polygon_tickers_names():
-    api = 'yUSniyZhsOS5mL5kd9N0wSDXFrl0poAI'
+    api = 'ONE_OF_MY_POLYGON_API_KEYS'
     limit = '10000'
     sort = 'ticker'
-    api_keys_list = ['yUSniyZhsOS5mL5kd9N0wSDXFrl0poAI', 'clsyK9TpKDfqel1gMO3u64UnO3SL9dUR',
-                     'tV7mNlNS4lGGi8P7qB7rNuF3s4d6jsoR', 'pmhrv2Mzh_bxcLAEmJCDyjY5oRpCIBoy',
-                     'lwBZG7QTOdKmuGhTM60bd3hNMpU8AYIw', 'TVRChL8pSAoZ3xpl_127sNTcZZru5lTb',
-                     'tKRCf11vHdJhO9EUgCZRuK2lpaLYhXdG',
-                     'bw4ypp8TSg6xjClDofdKUcSEHnfChnkZ',
-                     'quNWRFeMZd4VL5NukpfxbZO3ksnwHwbV',
-                     '7fmhhklP_9xKzP2ecvy3SsYxIF_P3t3L','yUSniyZhsOS5mL5kd9N0wSDXFrl0poAI', 'clsyK9TpKDfqel1gMO3u64UnO3SL9dUR',
-                     'tV7mNlNS4lGGi8P7qB7rNuF3s4d6jsoR', 'pmhrv2Mzh_bxcLAEmJCDyjY5oRpCIBoy',
-                     'lwBZG7QTOdKmuGhTM60bd3hNMpU8AYIw', 'TVRChL8pSAoZ3xpl_127sNTcZZru5lTb',
-                     'tKRCf11vHdJhO9EUgCZRuK2lpaLYhXdG',
-                     'bw4ypp8TSg6xjClDofdKUcSEHnfChnkZ',
-                     'quNWRFeMZd4VL5NukpfxbZO3ksnwHwbV',
-                     '7fmhhklP_9xKzP2ecvy3SsYxIF_P3t3L','yUSniyZhsOS5mL5kd9N0wSDXFrl0poAI', 'clsyK9TpKDfqel1gMO3u64UnO3SL9dUR',
-                     'tV7mNlNS4lGGi8P7qB7rNuF3s4d6jsoR', 'pmhrv2Mzh_bxcLAEmJCDyjY5oRpCIBoy',
-                     'lwBZG7QTOdKmuGhTM60bd3hNMpU8AYIw', 'TVRChL8pSAoZ3xpl_127sNTcZZru5lTb',
-                     'tKRCf11vHdJhO9EUgCZRuK2lpaLYhXdG',
-                     'bw4ypp8TSg6xjClDofdKUcSEHnfChnkZ',
-                     'quNWRFeMZd4VL5NukpfxbZO3ksnwHwbV',
-                     '7fmhhklP_9xKzP2ecvy3SsYxIF_P3t3L','yUSniyZhsOS5mL5kd9N0wSDXFrl0poAI', 'clsyK9TpKDfqel1gMO3u64UnO3SL9dUR',
-                     'tV7mNlNS4lGGi8P7qB7rNuF3s4d6jsoR', 'pmhrv2Mzh_bxcLAEmJCDyjY5oRpCIBoy',
-                     'lwBZG7QTOdKmuGhTM60bd3hNMpU8AYIw', 'TVRChL8pSAoZ3xpl_127sNTcZZru5lTb',
-                     'tKRCf11vHdJhO9EUgCZRuK2lpaLYhXdG',
-                     'bw4ypp8TSg6xjClDofdKUcSEHnfChnkZ',
-                     'quNWRFeMZd4VL5NukpfxbZO3ksnwHwbV',
-                     '7fmhhklP_9xKzP2ecvy3SsYxIF_P3t3L','yUSniyZhsOS5mL5kd9N0wSDXFrl0poAI', 'clsyK9TpKDfqel1gMO3u64UnO3SL9dUR',
-                     'tV7mNlNS4lGGi8P7qB7rNuF3s4d6jsoR', 'pmhrv2Mzh_bxcLAEmJCDyjY5oRpCIBoy',
-                     'lwBZG7QTOdKmuGhTM60bd3hNMpU8AYIw', 'TVRChL8pSAoZ3xpl_127sNTcZZru5lTb',
-                     'tKRCf11vHdJhO9EUgCZRuK2lpaLYhXdG',
-                     'bw4ypp8TSg6xjClDofdKUcSEHnfChnkZ',
-                     'quNWRFeMZd4VL5NukpfxbZO3ksnwHwbV',
-                     '7fmhhklP_9xKzP2ecvy3SsYxIF_P3t3L','yUSniyZhsOS5mL5kd9N0wSDXFrl0poAI', 'clsyK9TpKDfqel1gMO3u64UnO3SL9dUR',
-                     'tV7mNlNS4lGGi8P7qB7rNuF3s4d6jsoR', 'pmhrv2Mzh_bxcLAEmJCDyjY5oRpCIBoy',
-                     'lwBZG7QTOdKmuGhTM60bd3hNMpU8AYIw', 'TVRChL8pSAoZ3xpl_127sNTcZZru5lTb',
-                     'tKRCf11vHdJhO9EUgCZRuK2lpaLYhXdG',
-                     'bw4ypp8TSg6xjClDofdKUcSEHnfChnkZ',
-                     'quNWRFeMZd4VL5NukpfxbZO3ksnwHwbV',
-                     '7fmhhklP_9xKzP2ecvy3SsYxIF_P3t3L',
+    api_keys_list = [
+        'LIST_OF_MY_POLYGON_API_KEYS'
                      ]
 
     tickers_names_dict = {}
 
-    # https://api.polygon.io/v3/reference/tickers?active=true&sort={sort}&order=asc&limit={limit}&apiKey={api}
     api_url = f'https://api.polygon.io/v3/reference/tickers?active=true&sort={sort}&order=asc&limit={limit}&apiKey={api}'
     data1 = requests.get(api_url).json()
 
