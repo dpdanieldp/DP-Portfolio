@@ -46,8 +46,6 @@ def avg_currencies_b():
     now = datetime.now()
 
     last_call = now.strftime("%Y-%m-%d")
-    # print (last_call)
-
 
     data_s= {"Last_call": last_call,
              "Currency": currency2,
@@ -133,7 +131,6 @@ def commodities_b():
     now = datetime.now()
 
     last_call = now.strftime("%Y-%m-%d %H:%M")
-    # print(last_call)
 
     data_s= {"Last_call": last_call,
         "Ticker": commodities,
@@ -246,12 +243,7 @@ def bonds_b():
 
 
 def bankier_info_to_db_currencies():
-
-
-
     avg_currencies = avg_currencies_b()
-
-
     date_in_db = models.LastCalls.query.filter_by(source= 'bankier_date').first()
     if not date_in_db:
         last_call_date= models.LastCalls(source= 'bankier_date', last_call= avg_currencies["Last_call"])
@@ -271,8 +263,6 @@ def bankier_info_to_db_currencies():
                                            change= avg_currencies['One_day change'][i],
                                            date= avg_currencies['Date'][i])
         db.session.add(currency_info)
-
-
     db.session.commit()
 
 
@@ -294,7 +284,6 @@ def bankier_currencies_check_or_not():
 
 
 def bankier_info_to_db_rest():
-
     commodities = commodities_b()
     stocks = stocks_b()
     new_connect = new_connect_b()
@@ -311,9 +300,6 @@ def bankier_info_to_db_rest():
 
     db.session.query(models.BankierCommodity).delete()
     db.session.commit()
-
-
-
     for i in range(len(commodities["Ticker"])):
         commodities_info = models.BankierCommodity(ticker= commodities['Ticker'][i],
                                                   name= commodities['Name'][i],
@@ -322,11 +308,8 @@ def bankier_info_to_db_rest():
                                                   change= commodities['Change'][i],
                                                    date= commodities['Date'][i])
         db.session.add(commodities_info)
-
-
     db.session.commit()
-
-
+    
     db.session.query(models.BankierStockBond).delete()
     db.session.commit()
 
@@ -355,12 +338,9 @@ def bankier_info_to_db_rest():
                                                    change= bonds['Percentage change'][i],
                                                    date= bonds['Date'][i])
         db.session.add(bonds_info)
-
-
     db.session.commit()
 
 def bankier_rest_check_or_not():
-
     now= datetime.now()
     last_call_b_date = models.LastCalls.query.filter_by(source= 'bankier_date').first()
 
