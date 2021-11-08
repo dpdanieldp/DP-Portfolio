@@ -6,12 +6,8 @@ from sqlalchemy import desc
 
 
 def generate_ti_wallet_rep(user):
-    pass
-
     wallet = models.Wallet.query.filter_by(user_id=user.id).order_by(desc(models.Wallet.percentage_in_wallet))
-
-
-
+    
     # -----------lists to report:
     tickers_l = []
     names_l = []
