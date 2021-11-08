@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block background %}body {background-image: url({{ url_for('static', filename='img/awsda-background.jpg') }});}
+{%endblock%}
+{% block title %}AWS DA{% endblock %}
+{% block content %}
+<div class="card-deck w-100 p-3">
+    <div class="card border-success mb-3 w-100 p-3">
+        <div class="card-header bg-transparent border-primary"  style="background-image: url('{{ url_for('static', filename='img/awsda-background.jpg') }}');">
+            <p align="center"><img src="static/img/AWS_Dec_As-removebg-preview (1).png" alt="AWS Decission Assistant"></p>
+
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+
+                <li class="list-group-item">
+                    <p align="left" ><a href="/awsda-relational-2" class="btn btn-outline-secondary btn-sm float-left">Go back</a></p>
+
+                    <h3 align="center">Solution:</h3></br>
+                    </br>
+                    <div class="table-responsive ">
+                        <table class="table ">
+
+
+                            <tbody>
+                            <tr class="table-success">
+
+                                <td><h4>MySQL:</h4></td>
+
+                                <td><a href="https://aws.amazon.com/rds/aurora/mysql-features/" target="_blank" class="btn btn-success btn-block">Aurora MySQL &nbsp;&nbsp; <img src="static/Amazon-Aurora_Icon.svg"></a></td>
+                            </tr>
+                            <tr class="table-success">
+
+                                <td><h4>PostgreSQL:</h4></td>
+
+                                <td><a href="https://aws.amazon.com/rds/aurora/postgresql-features/"  target="_blank" class="btn btn-success btn-block">Aurora PostgreSQL &nbsp;&nbsp; <img src="static/Amazon-Aurora_Icon.svg"></a></td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}>/html>

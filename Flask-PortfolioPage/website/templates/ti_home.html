@@ -1,0 +1,125 @@
+{% extends "base.html" %}{% block meta %}<meta http-equiv="refresh" content="600"/>{% endblock %}
+{% block background %}
+body {background-image: url({{ url_for('static', filename='img/ti-background(1).jpg') }});; background-position: center;
+background-repeat: no-repeat;
+background-size: cover;}
+{%endblock%}
+{% block title %}Your TI wallet{% endblock %} {% block content
+%}
+
+<div class="card-deck w-100 p-3" >
+  <div class="card border-warning mb-3 w-100 p-3">
+    <div class="card-header bg-transparent border-warning"  style="background-image: url('{{ url_for('static', filename='img/ti-background.jpg') }}');">
+      <p align="center"><img src="static/img/Treasure_Island-removebg-preview.png" alt="Treasure Island"></p>
+
+    </div>
+    <div class="card-body">
+      <ul class="list-group" >
+        <li class="list-group-item list-group-item-warning">
+          <form method="POST">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <div id="content">
+                  <button type="submit" name="addComponent" value="addComponent" class="btn btn-warning float-right" onclick="loading();" >Add new wallet component!</button>
+                </div>
+                <div id="loading">
+
+                  <div class="spinner-border text-warning float-right" role="status">
+                    <span class="sr-only">Loading...</span>
+                  </div>
+                  <button type="submit" name="addComponent" value="addComponent" class="btn btn-warning float-right" disabled>Add new wallet component!</button>
+
+                </div>
+
+
+                <h4 class="text-dark">Hello, {{ user.first_name }}!</h4>
+
+                <div class="form-row align-items-center">
+                  <div class="col-auto my-1">
+                <h5 class="text-dark">Your wallet's current value is: <b>{{ current_wallet_value }}</b></h5>
+                  </div>
+                  <div class="col-auto my-1">
+                    <div class="input-group">
+                <select class="custom-select-sm" id="selectCurrency" name="selectCurrency">
+                  {% for x in currencies %}
+                  <option>{{x}}</option>
+                  {% endfor %}
+                </select>
+                <div class="input-group-append">
+                  <button class="btn btn-warning btn-sm" name="OKchangeCurrency" value="OKchangeCurrency" type="submit">OK</button>
+
+                </div>
+
+                  </div>
+                  </div>
+
+                  {% if not empty_wallet %}
+
+                  <div class="col-auto my-1">
+                    <div id="content">
+
+                  <button class="btn btn-outline-dark btn-sm float-right" name="downloadTIRep" value="downloadTIRep" title="Download your TI wallet in .xlsx file" type="submit">Download your wallet</button>
+                  </div>
+                  </div>
+
+                  {% endif %}
+
+              </div>
+              </div>
+            </div>
+          </div>
+          </form>
+
+
+
+        </li>
+        {% if empty_wallet %}
+        <li class="list-group-item list-group-item">
+          <h6 align="center">Your wallet is empty! Click above to add a component!</h6>
+        </li>
+      </ul>
+        {% else %}
+      <li class="list-group-item list-group-item">
+        <div class="table-responsive ">
+
+        <table class="table table-hover table-sm" >
+          <thead>
+          <tr>
+            <th scope="col">Asset</th>
+            <th scope="col">Qty</th>
+            <th scope="col">Price/unit</th>
+            <th scope="col">Value</th>
+            <th scope="col">Weight</th>
+            <th scope="col"></th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for wallet in user.components %}
+          <tr>
+            <td><b>{{ wallet.ticker }}</b></td>
+            <td>{{ wallet.amount }}</td>
+            <td>{{ wallet.value_per_1 }} {{ wallet.value_currency }}</td>
+            <td>{{ wallet.value }} {{ wallet.value_currency }}</td>
+            <td>{{ wallet.percentage_in_wallet }}%</td>
+            <td><button type="button" class="btn btn-outline-danger btn-sm float-right" title="Delete component" onClick="deleteComponent({{ wallet.id }})">
+              <span aria-hidden="true">&times;</span>
+            </button></td>
+          </tr>
+          {% endfor %}
+
+          </tbody>
+        </table>
+        </div>
+      </li>
+      {% endif %}
+<!--      </ul>-->
+
+
+
+  </div>
+  </div>
+
+
+</div>
+{% endblock %}

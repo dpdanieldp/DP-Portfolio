@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+{% block background %} body {background-image: url({{ url_for('static', filename='img/start-background(4).jpg')}}); background-position: center;
+background-repeat: no-repeat;
+background-size: cover;}{%endblock%}
+{% block title %}DP Start{% endblock %}
+{% block content %}
+<div>
+    <table style="width:100%">
+        <tr>
+            <td height="20" width="5%"></td>
+            <td height="20" width="90%"></td>
+            <td height="20" width="5%"></td>
+        </tr>
+        <tr>
+            <td width="5%"></td>
+            <td width="90%">
+                <div class="card border-dark">
+                    <div class="card-header bg-transparent border-dark"  style="background-image: url('{{ url_for('static', filename='img/black bg.png') }}');">
+                        <p align="center"><img src="static/img/Hello World_ (4).png" alt="Finance Control Application"></p>
+
+                    </div>
+
+
+                <div class="card-body">
+                    <h4 class="card-title">Hello, I'm Daniel</h4>
+                    <p class="card-text"><b>Nice to see you here!</b><br>
+                        I'm a Python programmer, trying to make life easier and automate boring and complicated tasks using programming.</p>
+                    <p>This website showcases some of my web applications developed using Flask. <br>
+                    <b>Please feel free to explore the projects below.</b>
+                            These are solutions for various fields: <b> asset management (Treasure Island), IT using tools offered by AWS (AWS DA), and a project created to practice working with Rest API (Book Collection).</b>
+                        </p>
+
+                    <p><a href="https://github.com/dpdanieldp/DP-Portfolio.git" target="_blank" class="btn btn-sm btn-secondary">Here is my GitHub portfolio repository</a></p>
+                        <p>I hope that you will like the solutions proposed by me and we will have the opportunity to work together on new projects.<br>
+                        You can contact me at the following email address: <a href = "mailto: dp.business.contact.dp@gmail.com">dp.business.contact.dp@gmail.com</a><br>
+                    Have a good time!</p>
+
+
+
+                </div>
+            </div></td>
+            <td width="5%"></td>
+        </tr>
+        <tr>
+            <td height="20" width="5%"></td>
+            <td height="20" width="90%"></td>
+            <td height="20" width="5%"></td>
+        </tr>
+    </table>
+    <table>
+        <td width="5%"></td>
+        <td width="90%">
+            <div class="card-deck">
+
+                <div class="card border-success mb-3">
+                    <div class="card-header bg-transparent border-success"  style="background-image: url('{{ url_for('static', filename='img/awsda-background-small.jpg') }}');">
+                        <img src="static/img/AWS_Dec_As-removebg-preview (1).png" alt="AWS Decission Assistant">
+                    </div>
+
+                    <div class="card-body">
+
+                        <p class="card-text"><b>There are many database solutions available on AWS.</b></br>
+                            Choosing the right tool is not always easy, and it can be vital to the success of your project.</br></p>
+                        <p>AWS Decission Assistant was created to help you make the right decision.</br></p>
+                        <p>Convenient quiz form will help you quickly choose AWS solution best suited to your needs.</p>
+
+                        <p align="center"><a href="/aboutawsda" class="btn btn-success ">Learn more</a></p>
+                    </div>
+                    <div class="text-center">
+
+                        <a href="/awsda-q1" class="btn btn-success btn-lg btn-block">Go to AWS DA</a>
+
+                    </div>
+                </div>
+                <div class="card border-warning mb-3">
+                    <div class="card-header bg-transparent border-warning" style="background-image: url('{{ url_for('static', filename='img/ti-background-small.jpg') }}');">
+                        <img src="static/img/Treasure_Island-removebg-preview.png" alt="Treasure Island">
+                    </div>
+
+                    <div class="card-body">
+
+                        <p ><b>Treasure Island is a tool to monitor the value of your wealth</b> consisting of various assets such as stocks, bonds, ETFs, cryptocurrencies, cash, gold and silver bullion, real estate and more.</p>
+                            <p>TI indicates the current* value and percentage of portfolio components and allows you to download a portfolio report.</p>
+                        <p><small>*Value data have different latencies.
+                            </small></p>
+                        <p><button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#disclaimer">
+                            Disclaimer
+                        </button></p>
+
+                        <p align="center"><a href="/aboutti" class="btn btn-warning ">Learn more</a></p>
+                    </div>
+                    <div class="text-center">
+                        {% if user.is_authenticated %}
+                        <a href="/tiwallet" class="btn btn-warning btn-lg btn-block">Go to TI</a>
+                        {% else %}
+                        <a href="/login" class="btn btn-warning btn-lg btn-block">Go to TI</a>
+                        {% endif %}
+
+                    </div>
+                </div>
+
+                <div class="modal fade" id="disclaimer" tabindex="-1" role="dialog" aria-labelledby="disclaimer" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="disclaimerTitle">Treasure Island- disclaimer</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <p>All data and information is presented "as is" for informational purposes and personal use only and is not intended for investment purposes or as financial, investment, tax, legal or accounting advice.</p>
+                                <p>You should consult with your broker or financial advisor to verify pricing before trading. The creator of Treasure Island is not an investment advisor, financial advisor or broker. No data or information constitutes investment advice, offer, recommendation or solicitation, relating to the purchase, sale or continued holding of securities or other financial products, and the creator of Treasure Island does not guarantee (or express any opinion as to) the merits or suitability of any investment.</p>
+
+                                <p>No data or information constitutes investment advice (whether general or regarding specific clients). The financial products and operations to which this data and information relates may not be properly suited to the investment profile and objectives or expectations of individual customers. </p>
+                                    <p>It is your responsibility to decide whether a financial product or operation is right for you. Consider your needs, investment objectives, plans and willingness to take risks. The creator of Treasure Island is not responsible for damages resulting from investments in financial products presented in this document or operations related to them. The Treasure Island creator does not recommend using the data and information presented as the sole basis for making an investment decision.</p>
+
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-warning" data-dismiss="modal">Understood</button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-secondary mb-3">
+                    <div class="card-header bg-transparent border-secondary"  style="background-image: url('{{ url_for('static', filename='img/books-background-min-small.jpg') }}');">
+                        <h1 align="center" style="color:lightgrey">Book Collection</h1>
+                    </div>
+
+                    <div class="card-body">
+
+                        <p class="card-text">Application allows you to create db with books info.</p>
+                        <p>You can add books yourself or import books from Google Book by criteria.</p>
+                        <p>It is possible to search in your book collection, edit end delete books.</p>
+                        <p>Application serves also REST API queries - you can search books in your collection by some values.</p><br>
+
+
+                        <p align="center"><a href="/aboutgb" class="btn btn-secondary ">Learn more</a></p>
+                    </div>
+                    <div class="text-center">
+
+                        <a href="/gbhome" class="btn btn-secondary btn-lg btn-block">Go to Book Collection</a>
+
+                    </div>
+                </div>
+            </div></td>
+        <td width="5%"></td>
+
+
+
+    </table>
+
+
+</div>
+
+{% endblock %}

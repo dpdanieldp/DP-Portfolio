@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block background %} body {background-image: url({{ url_for('static', filename='img/books-background-min.jpg')}}); background-position: center;
+background-repeat: no-repeat;
+background-size: cover;}{%endblock%}
+{% block title %}About Book collection{% endblock %}
+{% block content %}
+<div class="card-deck w-100 p-3 " xmlns="http://www.w3.org/1999/html" >
+    <div class="card border-primary mb-3 w-100 p-3 ">
+        <div class="card-header bg-transparent border-secondary"  style="background-image: url('{{ url_for('static', filename='img/books-background-min-small.jpg') }}');">
+            <h1 align="center" style="color:lightgrey">Book Collection</h1>
+        </div>
+
+        <div class="card-body">
+            <ul class="list-group" >
+
+                <li class="list-group-item">
+                    <h5 class="card-title">About Book Collection</h5>
+                    <p >Application allows you to create db with books info.</p>
+                    <p>You can add books yourself or import books from Google Book by criteria.</p>
+                    <p>It is possible to search in your book collection, edit end delete books.</p>
+                    <p>Application serves also REST API queries - you can search books in your collection by some values.</p>
+                    <p>Working REST API query pattern:</p>
+                    <ul>
+                        <li>X- your search</li>
+                        <li>title- search in tiles</li>
+                        <li>author- search in authors</li>
+                        <li>language- search in languages</li>
+                        <li>fromdate- search FROM this publication date (date format: YYYY-mm-dd)</li>
+                        <li>todate- search TO this publication date (date format: YYYY-mm-dd)</li>
+                    </ul>
+                    <br>
+                    <p>API URL:</p>
+                        <p>http://gbapidp.us-east-2.elasticbeanstalk.com/book-collection/api/query?title=X&author=X&language=X&fromdate=X&todate=X</p>
+                    <a href="/gbhome" class="btn btn-secondary ">Go to Book Collection</a>
+                    </br>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+</div>
+
+{% endblock %}

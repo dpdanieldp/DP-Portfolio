@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% block background %} body {background-image: url({{ url_for('static', filename='img/books-background-min.jpg')}}); background-position: center;
+background-repeat: no-repeat;
+background-size: cover;}{%endblock%}
+{% block title %}Dodaj książkę{% endblock %} {% block content
+%}
+
+<div class="card-deck  p-4" >
+    <div class="card border-primary ">
+        <div class="card-header bg-transparent border-primary ">
+            <h1 align="center" class="text-dark">Your Book Collection</h1>
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+                <li class="list-group-item list-group-item-primary">
+                   <h4 align="center">Add book</h4>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <div class="row">
+
+                        <div class="col-lg">
+
+                            <a href="/gbhome" id="addBook" class="btn btn-primary btn-sm float-left">Home page</a>
+
+                            <a href="/import-from-API" id="importFromAPI" class="btn btn-primary btn-sm float-right">Import from Google Books</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <p><small>Fields marked with * are mandatory.
+                        <br>
+                        If there is more than one author - separate their names with a semicolon ;</small></p>
+                                <form method="POST">
+                                    <div class="form-row align-items-center">
+                                        <div class="col-auto my-1">
+                                            <label for="addTitle" class="text-dark">Title*:</label>
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="addTitle"
+                                                       name="addTitle" placeholder="Title" aria-label="Title">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto my-1">
+                                            <label for="addAuthor" class="text-dark">Author*:</label>
+                                            <input type="text" class="form-control" id="addAuthor"
+                                                   name="addAuthor" placeholder="Author" aria-label="Author">
+                                        </div>
+                                        <div class="col-auto my-1">
+                                            <label for="addPubDate">Publication date*:</label>
+                                            <input type="date" class="form-control" id="addPubDate"
+                                                   name="addPubDate"  aria-label="Publication date">
+                                        </div>
+                                    </div>
+                                        <div class="form-row align-items-center">
+                                        <div class="col-auto my-1">
+                                            <label for="addIsbn">ISBN*:</label>
+                                            <input type="text" class="form-control" id="addIsbn"
+                                                       name="addIsbn" placeholder="ISBN only digits or x" aria-label="ISBN">
+                                        </div>
+
+                                        </div>
+                                        <div class="form-row align-items-center">
+                                            <div class="col-auto my-1">
+                                                <label for="addPageCount">Page count*:</label>
+                                                <input type="number" class="form-control" id="addPageCount"
+                                                       name="addPageCount" placeholder="Page count" aria-label="Page count" step="1" min="0">
+                                            </div>
+                                            <div class="col-auto my-1">
+                                                <label for="addLinkToCover">Link to cover:</label>
+                                                <input type="url" class="form-control" id="addLinkToCover"
+                                                       name="addLinkToCover" placeholder="Link" aria-label="Link to cover">
+                                            </div>
+                                        <div class="col-auto my-1">
+                                            <label for="addLanguage" class="text-dark">Language*:</label>
+                                            <input type="text" class="form-control" id="addLanguage"
+                                                   name="addLanguage" placeholder="Language" aria-label="Language">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-lg">
+                                            <button class="btn btn-primary float-right" name="addBook" value="addBook" type="submit">Add book</button>
+                                        </div>
+                                    </div>
+                                </form>
+                </li>
+                {% if empty_table %}
+                <li class="list-group-item list-group-item">
+                    <h6 align="center">Your book collection is empty</h6>
+                </li>
+                {% else %}
+                <div class="table-responsive "  style="height: 200px">
+
+                    <table class="table table-hover table-sm" id="myTable6">
+                        <thead>
+                        <tr>
+                            <th scope="col" onclick="sortTable('myTable6',0)">Title</th>
+                            <th scope="col" onclick="sortTable('myTable6',1)">Author</th>
+                            <th scope="col" onclick="sortTable('myTable6',2)">Pub date</th>
+                            <th scope="col" onclick="sortTable('myTable6',3)">ISBN</th>
+                            <th scope="col" onclick="sortTable('myTable6',4)">Page count</th>
+                            <th scope="col" onclick="sortTable('myTable6',5)">Cover</th>
+                            <th scope="col" onclick="sortTable('myTable6',6)">Lang.</th>
+                            <th scope="col" >Edit</th>
+                            <th scope="col" >Delete</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for book in books %}
+                        <tr>
+                            <td><b>{{ book.title }}</b></td>
+                            <td>{{ book.author }}</td>
+                            <td>{{ book.publication_date }}</td>
+                            <td>{{ book.isbn }}</td>
+                            <td>{{ book.page_count }}</td>
+                            <td>{% if book.link_to_cover == '---' %}
+                                ---
+                                {% else %}
+                                <a href="{{book.link_to_cover}}" target="_blank">link</a>
+                                {% endif %}
+                            </td>
+                            <td>{{ book.publication_language }}</td>
+                            <td><a href="/edit-book/{{ book.id }}" >Edit</a></td>
+                            <td>
+                                <button type="submit" class="btn btn-outline-danger btn-sm float-right" title="deleteBook" onClick="deleteBook({{ book.id }})">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% endif %}
+            </ul>
+
+
+
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block background %}body {background-image: url({{ url_for('static', filename='img/awsda-background.jpg') }});}
+{%endblock%}
+{% block title %}AWS DA{% endblock %}
+{% block content %}
+<div class="card-deck w-100 p-3">
+    <div class="card border-success mb-3 w-100 p-3">
+        <div class="card-header bg-transparent border-primary"  style="background-image: url('{{ url_for('static', filename='img/awsda-background.jpg') }}');">
+            <p align="center"><img src="static/img/AWS_Dec_As-removebg-preview (1).png" alt="AWS Decission Assistant"></p>
+
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+
+                <li class="list-group-item">
+                    <p align="left" ><a href="/awsda-q1" class="btn btn-outline-secondary btn-sm float-left">Go back</a><h5 align="right" class="text-secondary">Step 2</h5></p>
+
+                    <h3 align="center">What application do you need the database for?</h3></br>
+                    </br>
+                    <div class="table-responsive ">
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr class="table-success">
+                            <th scope="col">Database type</th>
+                            <th scope="col">Advantage</th>
+                            <th scope="col">Use cases</th>
+                            <th scope="col"></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        <tr class="table-success">
+
+                            <td>Relational</td>
+                            <td>Storing data using predefined <b>schemas and relations</b> between them</td>
+                            <td>Traditional applications, enterprise resource planning (ERP), customer relationship management (CRM), ecommerce, IoT solutions, online transaction processing, data warehouses</td>
+                            <td><a href="/awsda-relational-1" class="btn btn-success btn-block">GO</a></td>
+                        </tr>
+                        <tr class="table-success">
+
+                            <td>In-memory</td>
+                            <td><b>Real-time access to data</b>, microsecond latency</td>
+                            <td>Caching, session management, gaming leaderboards, geospatial applications</td>
+                            <td><a href="/awsda-in-memory-1" class="btn btn-success btn-block">GO</a></td>
+                        </tr>
+                        <tr class="table-success">
+
+                            <td>Key-value</td>
+                            <td><b>Quick response times</b>, even in extreme volumes of concurrent requests</td>
+                            <td>High-traffic web applications, ecommerce systems, gaming applications, real-time recommendations and advertising, to store user session details and preference in a key-value store</td>
+                            <td><a href="https://aws.amazon.com/dynamodb/?c=db&sec=srv" target="_blank" class="btn btn-success btn-block">Amazon DynamoDB</a></td>
+                        </tr>
+
+                        <tr class="table-success">
+
+                            <td>Document</td>
+                            <td><b>Storing semistructured data as JSON-like documents</b>, help build and update applications quickly</td>
+                            <td>Content management, catalogs, user profiles</td>
+                            <td><a href="https://aws.amazon.com/documentdb/?c=db&sec=srv" target="_blank" class="btn btn-success float-right">Amazon DocumentDB</a></td>
+                        </tr>
+                        <tr class="table-success">
+
+                            <td>Wide column</td>
+                            <td>It uses tables, rows, and columns, but<b> names and format of the columns can vary from row to row in the same table.</b></td>
+                            <td>High-scale industrial apps for equipment maintenance, fleet management, and route optimization</td>
+                            <td><a href="https://aws.amazon.com/keyspaces/?c=db&sec=srv" target="_blank" class="btn btn-success float-right">Amazon Keyspaces</a></td>
+                        </tr>
+                        <tr class="table-success">
+
+                            <td>Graph</td>
+                            <td>Allows you to navigate and search <b>millions of relationships between highly connected graphs of datasets with millisecond delays on a large scale.</b></td>
+                            <td>Fraud detection, social networking, recommendation engines</td>
+                            <td><a href="https://aws.amazon.com/neptune/?c=db&sec=srv" target="_blank" class="btn btn-success float-right">Amazon Neptune</a></td>
+                        </tr>
+                        <tr class="table-success">
+
+                            <td>Time series</td>
+                            <td>Efficiently collects, synthesizes, and<b> extracts insights from data that change over time and from queries that span time periods.</b></td>
+                            <td>Internet of Things (IoT) applications, DevOps, industrial telemetry</td>
+                            <td><a href="https://aws.amazon.com/timestream/?c=db&sec=srv" target="_blank" class="btn btn-success float-right">Amazon Timestream</a></td>
+                        </tr>
+                        <tr class="table-success">
+
+                            <td>Ledger</td>
+                            <td>Provides a centralized and trusted authority to maintain a scalable, immutable, and <b> cryptographically verifiable record of transactions</b></td>
+                            <td>Systems of record, supply chain, registrations, banking transactions</td>
+                            <td><a href="https://aws.amazon.com/qldb/?c=db&sec=srv" target="_blank" class="btn btn-success float-right">Amazon Ledger DB (QLDB)</a></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

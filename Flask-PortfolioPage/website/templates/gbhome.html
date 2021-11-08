@@ -1,0 +1,204 @@
+{% extends "base.html" %}
+{% block background %} body {background-image: url({{ url_for('static', filename='img/books-background-min.jpg')}}); background-position: center;
+background-repeat: no-repeat;
+background-size: cover;}{%endblock%}
+{% block title %}Book collection{% endblock %}
+{% block content%}
+
+<div class="card-deck  p-4" >
+  <div class="card border-primary ">
+    <div class="card-header bg-transparent border-primary ">
+      <h1 align="center" class="text-dark">Your Book Collection</h1>
+    </div>
+    <div class="card-body">
+      <ul class="list-group" >
+        <li class="list-group-item list-group-item-primary">
+          <div class="container">
+            <div class="row">
+              <div class="col-auto">
+                <h6>Add book:</h6>
+              </div>
+              <div class="col-lg">
+                  <a href="/add-book" id="addBook" class="btn btn-primary btn-sm float-left">Add book manually</a>
+
+                <a href="/import-from-API" id="importFromAPI" class="btn btn-primary btn-sm float-right">Import from Google Books</a>
+              </div>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item list-group-item-secondary">
+          <div id="accordion">
+          <div class="card">
+            <div class="card-header bg-transparent" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-block btn-sm btn-outline-secondary" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
+                  Search in book collection
+                </button>
+              </h5>
+            </div>
+            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body">
+                {% if empty_table %}
+                <h6 align="center">Your book collection is empty. Click above to add books.</h6>
+                <br>
+                <fieldset disabled>
+                <form method="POST">
+                  <div class="form-row align-items-center">
+                    <div class="col-auto my-1">
+                      <label for="searchTitle" class="text-dark">Title:</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="searchTitle"
+                               name="searchTitle" placeholder="Title" aria-label="Title">
+                      </div>
+                    </div>
+                    <div class="col-auto my-1">
+                      <label for="searchAuthor" class="text-dark">Author:</label>
+                      <input type="text" class="form-control" id="searchAuthor"
+                             name="searchAuthor" placeholder="Author" aria-label="Author">
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="searchLanguage" class="text-dark">Language:</label>
+                      <input type="text" class="form-control" id="searchLanguage"
+                             name="searchLanguage" placeholder="Languege" aria-label="Languege">
+                    </div>
+                    <div class="col-auto my-1">
+                      <label for="selectStartDate" class="text-dark">Publication date range:</label>
+                      <div class="input-group">
+                        <select class="custom-select" id="selectStartDate" name="selectStartDate">
+                          <option selected>---</option>
+
+
+
+                        </select>
+                        <div class="input-group-append">
+                          <select class="custom-select" id="selectStartDate" name="selectStartDate">
+                            <option selected>---</option>
+                          </select>
+                        </div>
+                      </div>
+                    </div>
+                    <br>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-lg">
+                      <button class="btn btn-primary btn-sm float-right" name="search" value="search" type="submit">Search</button>
+                    </div>
+                  </div>
+                </form>
+                </fieldset>
+                {% else %}
+
+                <form method="POST">
+                  <div class="form-row align-items-center">
+                    <div class="col-auto my-1">
+                      <label for="searchTitle" class="text-dark">Title:</label>
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="searchTitle"
+                               name="searchTitle" placeholder="Title" aria-label="Title">
+                      </div>
+                    </div>
+                    <div class="col-auto my-1">
+                      <label for="searchAuthor" class="text-dark">Author:</label>
+                      <input type="text" class="form-control" id="searchAuthor"
+                             name="searchAuthor" placeholder="Author" aria-label="Author">
+                    </div>
+                    <div class="col-sm-2">
+                      <label for="searchLanguage" class="text-dark">Language:</label>
+                      <input type="text" class="form-control" id="searchLanguage"
+                             name="searchLanguage" placeholder="Language" aria-label="Language">
+                    </div>
+                    <div class="col-auto my-1">
+                        <label for="selectStartDate" class="text-dark">Publication date range:</label>
+                        <div class="input-group">
+                          <select class="custom-select" id="selectStartDate" name="selectStartDate">
+                            <option selected>---</option>
+                            {% for x in dates %}
+                            <option>{{x}}</option>
+                            {% endfor %}
+
+                          </select>
+                          <div class="input-group-append">
+                            <select class="custom-select" id="selectEndDate" name="selectEndDate">
+                              <option selected>---</option>
+                              {% for x in dates %}
+                              <option>{{x}}</option>
+                              {% endfor %}
+                            </select>
+                          </div>
+                        </div>
+                    </div>
+                    <br>
+                  </div>
+                  <br>
+                  <div class="row">
+                    <div class="col-lg">
+                      <button class="btn btn-primary btn-sm float-right" name="search" value="search" type="submit">Search</button>
+                    </div>
+                  </div>
+                </form>
+
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+        {% if empty_table %}
+        <li class="list-group-item list-group-item">
+          <h6 align="center">Your book collection is empty. Click above to add books.</h6>
+        </li>
+        {% else %}
+        <div class="table-responsive "  style="height:400px">
+
+        <table class="table table-hover table-sm" id="myTable1">
+          <thead>
+          <tr>
+            <th scope="col" onclick="sortTable('myTable1',0)">Title</th>
+            <th scope="col" onclick="sortTable('myTable1',1)">Author</th>
+            <th scope="col" onclick="sortTable('myTable1',2)">Pub date</th>
+            <th scope="col" onclick="sortTable('myTable1',3)">ISBN</th>
+            <th scope="col" onclick="sortTable('myTable1',4)">Page count</th>
+            <th scope="col" onclick="sortTable('myTable1',5)">Cover</th>
+            <th scope="col" onclick="sortTable('myTable1',6)">Lang.</th>
+            <th scope="col" >Edit</th>
+            <th scope="col" >Delete</th>
+          </tr>
+          </thead>
+          <tbody>
+          {% for book in books %}
+          <tr>
+            <td><b>{{ book.title }}</b></td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.publication_date }}</td>
+            <td>{{ book.isbn }}</td>
+            <td>{{ book.page_count }}</td>
+            <td>{% if book.link_to_cover == '---' %}
+              ---
+              {% else %}
+              <a href="{{book.link_to_cover}}" target="_blank">link</a>
+              {% endif %}
+            </td>
+            <td>{{ book.publication_language }}</td>
+            <td><a href="/edit-book/{{ book.id }}" >Edit</a></td>
+            <td>
+              <button type="submit" class="btn btn-outline-danger btn-sm float-right" title="deleteBook" onClick="deleteBook({{ book.id }})">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            </td>
+          </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+        </div>
+      {% endif %}
+
+
+      </ul>
+  </div>
+  </div>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block background %}body {background-image: url({{ url_for('static', filename='img/awsda-background.jpg') }});}
+{%endblock%}
+{% block title %}AWS DA{% endblock %}
+{% block content %}
+<div class="card-deck w-100 p-3">
+    <div class="card border-success mb-3 w-100 p-3">
+        <div class="card-header bg-transparent border-primary"  style="background-image: url('{{ url_for('static', filename='img/awsda-background.jpg') }}');">
+            <p align="center"><img src="static/img/AWS_Dec_As-removebg-preview (1).png" alt="AWS Decission Assistant"></p>
+
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+
+                <li class="list-group-item">
+                    <p align="left" ><a href="/awsda-q1" class="btn btn-outline-secondary btn-sm float-left">Go back</a><h5 align="right" class="text-secondary">Step 2</h5></p>
+
+                    <h3 align="center">Which database engine do you use in your project?</h3></br>
+                    </br>
+                    <div class="table-responsive ">
+                        <table class="table">
+
+
+                            <tbody>
+                            <tr class="table-success">
+
+                                <td><h4 align="left" class="text-dark">MySQL or PostgreSQL:</h4></td>
+                                <td><a href="/awsda-relational-2-1" class="btn btn-success   btn-block float-right">&nbsp;&nbsp;&nbsp;&nbsp;GO&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+
+                            </tr>
+                            <tr class="table-success">
+
+                                <td><h4 align="left" class="text-dark">MariaDB:</h4></td>
+                                <td><a href="https://aws.amazon.com/rds/mariadb/" target="_blank" class="btn btn-success  btn-block  float-right">RDS MariaDB instance &nbsp;&nbsp; <img src="static/Amazon-RDS_Icon.svg"></a></td>
+
+                            </tr>
+                            <tr class="table-success">
+
+                                <td><h4 align="left" class="text-dark">SQL Server:</h4></td>
+                                <td><a href="https://aws.amazon.com/rds/sqlserver/" target="_blank" class="btn btn-success  btn-block float-right">RDS SQL Server instance &nbsp;&nbsp; <img src="static/Amazon-RDS_Icon.svg"></a></td>
+
+                            </tr>
+                            <tr class="table-success">
+
+                                <td><h4 align="left" class="text-dark">Oracle:</h4></td>
+                                <td><a href="https://aws.amazon.com/rds/oracle/" target="_blank" class="btn btn-success  btn-block float-right">RDS Oracle instance &nbsp;&nbsp; <img src="static/Amazon-RDS_Icon.svg"></a></td>
+
+                            </tr>
+                            <tr class="table-success">
+
+                                <td><h4 align="left" class="text-dark">Mongo DB:</h4></td>
+                                <td><a href="https://aws.amazon.com/documentdb/?c=db&sec=srv" target="_blank" class="btn btn-success  btn-block float-right">Amazon DocumentDB &nbsp;&nbsp; <img src="static/Amazon-DocumentDB_Icon.svg"></a></td>
+
+                            </tr>
+                            <tr class="table-success">
+
+                                <td><h4 align="left" class="text-dark">Apache Cassandra:</h4></td>
+                                <td><a href="https://aws.amazon.com/keyspaces/?c=db&sec=srv" target="_blank" class="btn btn-success  btn-block float-right">Amazon Keyspaces &nbsp;&nbsp; <img src="static/Amazon-Managed-Apache-Service.svg"></a></td>
+
+                            </tr>
+                            <tr class="table-success">
+
+                                <td><h4 align="left" class="text-dark">IBM DB2:</h4></td>
+                                <td><a href="https://aws.amazon.com/blogs/database/creating-highly-available-ibm-db2-databases-in-aws/" target="_blank" class="btn btn-success  btn-block float-right">DB2 on EC2 instance </a></td>
+
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

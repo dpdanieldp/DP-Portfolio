@@ -1,0 +1,167 @@
+{% extends "base.html" %} {% block meta %}<meta http-equiv="refresh" content="600"/>{% endblock %}
+{% block background %}
+body {background-image: url({{ url_for('static', filename='img/ti-background(1).jpg') }});; background-position: center;
+background-repeat: no-repeat;
+background-size: cover;}
+{%endblock%}
+{% block title %}TI add component{% endblock %} {% block content
+%}
+
+<div class="card-deck w-100 p-3">
+    <div class="card border-warning mb-3 w-100 p-3">
+        <div class="card-header bg-transparent border-warning"  style="background-image: url('{{ url_for('static', filename='img/ti-background.jpg') }}');">
+            <p align="center"><img src="static/img/Treasure_Island-removebg-preview.png" alt="Treasure Island"></p>
+
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+                <li class="list-group-item list-group-item-warning">
+                    <div class="form-group row">
+                        <label for="goBack" class="col-sm-4 col-form-label"><h4 class="text-dark">Hello, {{ user.first_name }}!</h4></label>
+                        <div class="col-sm">
+                        <a href="/tiwallet" id="goBack" class="btn btn-warning float-right">Go back to your wallet</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-warning">
+
+                <h5 class="text-dark"> Add component to your wallet:</h5>
+                                    <form method="POST">
+                                        <div class="form-row align-items-center">
+
+                                            <div class="col-auto my-1">
+                                                <label for="selectCategory" class="text-dark"><b>1. Select category:</b></label>
+
+
+                                                <div class="input-group">
+                                                    <select class="custom-select" id="selectCategory" name="selectCategory">
+                                                        <option selected>Select category...</option>
+                                                        {% for x in list_of_categories %}
+                                                        <option>{{x}}</option>
+                                                        {% endfor %}
+
+
+                                                    </select>
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-warning" name="OKcategory" value="OKcategory" type="submit">OK</button>
+                                                    </div>
+
+
+                                                </div>
+
+
+                                            </div>
+
+
+
+                                            <div class="col-auto my-1">
+                                                <fieldset disabled>
+
+                                                    <label for="selectTicker" class="text-dark"><b>2. Select asset:</b></label>
+
+
+                                                    <div class="input-group">
+                                                        <select class="custom-select" id="selectTicker" name="selectTicker">
+                                                            <option selected>Select asset...</option>
+
+
+                                                        </select>
+
+
+                                                    </div>
+
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <fieldset disabled>
+
+                                                    <label for="inputQuantity" class="text-dark"><b>3. Quantity:</b></label>
+
+                                                    <div class="input-group">
+                                                        <input type="number" class="form-control" id="inputQuantity"
+                                                               name="inputQuantity" placeholder="Quantity" aria-label="Quantity">
+
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                            <div class="col-auto my-1">
+                                                <fieldset disabled>
+
+                                                    <label for="pickCurrency" class="text-dark"><b>4. Your TI wallet currency:</b></label>
+
+                                                    <div class="input-group">
+                                                        <select class="custom-select" id="pickCurrency" name="pickCurrency">
+                                                            <option selected>{{ currencies[0] }}</option>
+
+
+                                                        </select>
+                                                        <div class="input-group-append">
+                                                            <button class="btn btn-warning" name="addThisComponent" value="addThisComponent" type="submit">Add component</button>
+                                                        </div>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+
+
+
+
+
+                                        </div>
+                                        </br>
+
+
+
+                    </form>
+
+
+
+                </li>
+                {% if empty_wallet %}
+                <li class="list-group-item list-group-item">
+                    <h6 align="center">Your wallet is empty! Click above to add a component!</h6>
+                </li>
+            </ul>
+
+
+            {% else %}
+
+            <li class="list-group-item list-group-item">
+                <div class="table-responsive ">
+
+                    <table class="table table-hover table-sm" >
+                        <thead>
+                        <tr>
+                            <th scope="col">Asset</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Price/unit</th>
+                            <th scope="col">Value</th>
+                            <th scope="col">Weight</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for wallet in user.components %}
+                        <tr>
+                            <td><b>{{ wallet.ticker }}</b></td>
+                            <td>{{ wallet.amount }}</td>
+                            <td>{{ wallet.value_per_1 }} {{ wallet.value_currency }}</td>
+                            <td>{{ wallet.value }} {{ wallet.value_currency }}</td>
+                            <td>{{ wallet.percentage_in_wallet }}%</td>
+
+                        </tr>
+
+{% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+                {% endif %}
+            </ul>
+        </div>
+
+    </div>
+
+
+</div>
+
+ {% endblock %}

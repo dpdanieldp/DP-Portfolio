@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block background %}body {background-image: url({{ url_for('static', filename='img/awsda-background.jpg') }});}
+{%endblock%}
+{% block title %}AWS DA{% endblock %}
+{% block content %}
+<div class="card-deck w-100 p-3">
+    <div class="card border-success mb-3 w-100 p-3">
+        <div class="card-header bg-transparent border-primary"  style="background-image: url('{{ url_for('static', filename='img/awsda-background.jpg') }}');">
+            <p align="center"><img src="static/img/AWS_Dec_As-removebg-preview (1).png" alt="AWS Decission Assistant"></p>
+
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+
+                <li class="list-group-item">
+                    <p align="left" ><a href="/awsda-relational-1" class="btn btn-outline-secondary btn-sm float-left">Go back</a><h5 align="right" class="text-secondary">Step 4</h5></p>
+
+                    <h3 align="center">Is high performace db, auto-scaling to larger sizes and better fault tolerance most important to you or is your project not that large scale and you rather care about the lowest possible price?</h3></br>
+                    </br>
+                    <div class="table-responsive ">
+                        <table class="table table-bordered">
+
+
+                            <tbody>
+                            <tr class="table-success">
+
+                                <td><a href="/awsda-relational-sol-a" class="btn btn-success btn-block">This is a big project that can grow fast, I want the best possible performance and fault tolerance.</a></td>
+                            </tr>
+                            <tr class="table-success">
+
+                                <td><a href="/awsda-relational-sol-mp" class="btn btn-success btn-block">It's not a big project, I don't need the best performance to start with.</a></td>
+                            </tr>
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </li>
+            </ul>
+        </div>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

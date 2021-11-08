@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+
+{% block title %}Edit book{% endblock %}
+{% block content %}
+
+<div class="card-deck  p-4" >
+    <div class="card border-primary ">
+        <div class="card-header bg-transparent border-primary ">
+            <h1 align="center" class="text-dark">Your Book Collection</h1>
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+                <li class="list-group-item list-group-item-warning">
+                    <h4 align="center">Confirm saving</h4>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <div class="row">
+                        <div class="col-lg">
+                            <a href="/" id="addBook" class="btn btn-primary btn-sm float-left">Home page</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <h5 align="center">There are already entries in the database with the ISBN specified. Do you want to overwrite the existing entries?</h5>
+                    <br>
+                    <div class="row">
+
+                        <div class="col-lg">
+                            <a href="/gbhome" id="addBook" class="btn btn-primary btn-sm float-left">Reject all</a>
+                            <form method="post">
+                            <button class="btn btn-primary btn-sm float-right" name="overwriteAll" value="overwriteAll" type="submit">Save all</button>
+                            </form>
+                        </div>
+                    </div>
+                        <br>
+                    <ul class="list-group" >
+                <li class="list-group-item list-group-item-light">
+                    <h5 align="center">Data present in the database:</h5>
+                    <div class="table-responsive "  style="height: 200px">
+                        <table class="table table-hover table-sm" id="myTable4">
+                            <thead>
+                            <tr>
+                                <th scope="col" onclick="sortTable('myTable4',0)">Title</th>
+                                <th scope="col" onclick="sortTable('myTable4',1)">Author</th>
+                                <th scope="col" onclick="sortTable('myTable4',2)">Pub date</th>
+                                <th scope="col" onclick="sortTable('myTable4',3)">ISBN</th>
+                                <th scope="col" onclick="sortTable('myTable4',4)">Page count</th>
+                                <th scope="col" onclick="sortTable('myTable4',5)">Cover</th>
+                                <th scope="col" onclick="sortTable('myTable4',6)">Lang.</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for book in data_in_db %}
+                            <tr>
+                                <td><b>{{ book.title }}</b></td>
+                                <td>{{ book.author }}</td>
+                                <td>{{ book.publication_date }}</td>
+                                <td>{{ book.isbn }}</td>
+                                <td>{{ book.page_count }}</td>
+                                <td>{% if book.link_to_cover == '---' %}
+                                    ---
+                                    {% else %}
+                                    <a href="{{book.link_to_cover}}" target="_blank">link</a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ book.publication_language }}</td>
+
+                            </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-dark">
+                </li>
+                <li class="list-group-item list-group-item-light">
+                <h5 align="center">Nowe dane:</h5>
+
+                    <div class="table-responsive "  style="height: 200px">
+
+                        <table class="table table-hover table-sm" id="myTable5">
+                            <thead>
+                            <tr>
+
+                                <th scope="col" onclick="sortTable('myTable5',0)">Tyitle</th>
+                                <th scope="col" onclick="sortTable('myTable5',1)">Author</th>
+                                <th scope="col" onclick="sortTable('myTable5',2)">Pub date</th>
+                                <th scope="col" onclick="sortTable('myTable5',3)">ISBN</th>
+                                <th scope="col" onclick="sortTable('myTable5',4)">Page count</th>
+                                <th scope="col" onclick="sortTable('myTable5',5)">Cover</th>
+                                <th scope="col" onclick="sortTable('myTable5',6)">Lang.</th>
+
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for i in range(lenght) %}
+                            <tr>
+
+                                <td><b>{{ books_info_d["add_title"][i] }}</b></td>
+                                <td>{{ books_info_d["add_author"][i] }}</td>
+                                <td>{{ books_info_d["add_pub_date"][i] }}</td>
+                                <td>{{ books_info_d["clean_isbn"][i] }}</td>
+                                <td>{{ books_info_d["add_page_count"][i] }}</td>
+                                <td>{% if books_info_d["add_link_to_cover"][i] == '---' %}
+                                    ---
+                                    {% else %}
+                                    <a href="{{ books_info_d['add_link_to_cover'][i] }}" target="_blank">link</a>
+                                    {% endif %}
+                                </td>
+                                <td>{{ books_info_d["add_language"][i] }}</td>
+
+                            </tr>
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </li>
+                </li>
+
+
+            </ul>
+                </ul>
+
+
+
+
+        </div>
+    </div>
+
+
+</div>
+{% endblock %}

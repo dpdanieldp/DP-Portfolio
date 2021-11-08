@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block background %}body {background-image: url({{ url_for('static', filename='img/awsda-background.jpg') }});}
+{%endblock%}
+{% block title %}About AWS DA{% endblock %}
+{% block content %}
+<div class="card-deck w-100 p-3">
+    <div class="card border-success mb-3 w-100 p-3">
+        <div class="card-header bg-transparent border-primary"  style="background-image: url('{{ url_for('static', filename='img/awsda-background.jpg') }}');">
+            <p align="center"><img src="static/img/AWS_Dec_As-removebg-preview (1).png" alt="AWS Decission Assistant"></p>
+
+        </div>
+
+        <div class="card-body">
+            <h4 class="card-title">About AWS Decision Assistant</h4>
+            <p class="card-text"><b>There are many database solutions available on AWS.</b></br>
+                Choosing the right tool is not always easy, and it can be vital to the success of your project.</p>
+            <p>AWS Decission Assistant is a sipmle quiz-like project</br> created as a Jinja exercise and consolidation of knowledge about AWS database services,</br>which can be helpful in choosing the right tool from the AWS offer.</br></p>
+            <p style="color:grey"><small>Prepared on the basis of information from <a href="https://aws.amazon.com/products" target="_blank">here</a></small>.</p>
+
+            <a href="/awsda-q1" class="btn btn-success ">Go to AWS DA</a>
+
+        </div>
+        <div class="text-center">
+
+
+
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}

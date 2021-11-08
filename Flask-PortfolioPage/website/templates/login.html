@@ -1,0 +1,132 @@
+{% extends "base.html" %}
+{% block background %}
+body {background-image: url({{ url_for('static', filename='img/ti-background(1).jpg') }});; background-position: center;
+background-repeat: no-repeat;
+background-size: cover;}
+{%endblock%}
+{% block title %}TI Login{% endblock %}
+{% block content %}
+<div>
+  <table style="width:100%">
+    <tr>
+      <td height="50" width="5%"></td>
+      <td height="50" width="90%"></td>
+      <td height="50" width="5%"></td>
+    </tr>
+
+  </table>
+  <table>
+    <td width="5%"></td>
+    <td width="90%">
+      <div class="card-deck">
+        <div class="card border-warning mb-3">
+          <div class="card-header bg-transparent border-warning" style="background-image: url('{{ url_for('static', filename='img/ti-background-small.jpg') }}');">
+            <p align="center"><img src="static/img/Treasure_Island-small-removebg-preview.png" alt="Treasure Island"></p>
+          </div>
+
+          <div class="card-body">
+
+            <p class="card-text">Treasure Island is a tool to <b>monitor the value of your wealth</b> consisting of various assets such as stocks, bonds, ETFs, cryptocurrencies, cash, gold and silver bullion, real estate and more.</p>
+            <p>TI indicates the current* value and percentage of portfolio components and allows you to download a portfolio report.</p>
+            <p><small>*Value data have different latencies.
+            </small></p>
+            <!-- Button trigger modal -->
+            <p><button type="button" class="btn btn-outline-dark btn-sm" data-toggle="modal" data-target="#disclaimer">
+              Disclaimer
+            </button></p>
+
+            <a href="/aboutti" class="btn btn-warning ">Learn more</a>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="disclaimer" tabindex="-1" role="dialog" aria-labelledby="disclaimer" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="disclaimerTitle">Treasure Island- disclaimer</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <p>All data and information is presented "as is" for informational purposes and personal use only and is not intended for investment purposes or as financial, investment, tax, legal or accounting advice.</p>
+                  <p>You should consult with your broker or financial advisor to verify pricing before trading. The creator of Treasure Island is not an investment advisor, financial advisor or broker. No data or information constitutes investment advice, offer, recommendation or solicitation, relating to the purchase, sale or continued holding of securities or other financial products, and the creator of Treasure Island does not guarantee (or express any opinion as to) the merits or suitability of any investment.</p>
+
+                  <p>No data or information constitutes investment advice (whether general or regarding specific clients). The financial products and operations to which this data and information relates may not be properly suited to the investment profile and objectives or expectations of individual customers. </p>
+                  <p>It is your responsibility to decide whether a financial product or operation is right for you. Consider your needs, investment objectives, plans and willingness to take risks. The creator of Treasure Island is not responsible for damages resulting from investments in financial products presented in this document or operations related to them. The Treasure Island creator does not recommend using the data and information presented as the sole basis for making an investment decision.</p>
+
+
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-warning" data-dismiss="modal">Understood</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+        </div>
+
+      <div class="card border-warning mb-3">
+
+        <div class="card-body">
+
+          <form method="POST">
+            <h4 align="center">Login to Treasure Island!</h4>
+            <div class="form-group">
+              <label for="email" ></label>
+              <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="Enter email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="password"></label>
+              <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      placeholder="Enter password"
+              />
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="checkbox" id="keepLoggedIn" name="keepLoggedIn" value="keepLoggedIn">
+              <label class="form-check-label text-muted" for="keepLoggedIn">Keep me logged in</label>
+            </div>
+            <br/>
+            <br/>
+
+            <div id="content">
+            <button type="submit" class="btn btn-warning btn-lg btn-block" onclick="loading();" >Login</button>
+            </div>
+          </form>
+          <div id="loading">
+            <button type="submit" class="btn btn-warning btn-lg btn-block" disabled >Login</button>
+            </br>
+            <div class="d-flex align-items-center">
+              <strong>Please wait...</strong>
+              <div class="spinner-border ml-auto  text-warning" role="status" aria-hidden="true"></div>
+            </div>
+          </div>
+
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">No account? <a href = '/sign-up'>Sign up! </a> <a href = '/reset_password'>Forgot password?</a></small>
+        </div>
+      </div>
+
+
+    </div></td>
+    <td width="5%"></td>
+
+
+
+  </table>
+
+</div>
+
+  {% endblock %}

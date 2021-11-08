@@ -1,0 +1,235 @@
+{% extends "base.html" %}
+{% block background %} body {background-image: url({{ url_for('static', filename='img/books-background-min.jpg')}}); background-position: center;
+background-repeat: no-repeat;
+background-size: cover;}{%endblock%}
+
+{% block title %}Import books{% endblock %} {% block content
+%}
+
+<div class="card-deck  p-4" >
+    <div class="card border-primary ">
+        <div class="card-header bg-transparent border-primary ">
+            <h1 align="center" class="text-dark">Your Book Collection</h1>
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+                <li class="list-group-item list-group-item-primary">
+                    <h4 align="center">Import from Google Books</h4>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <div class="row">
+                        <div class="col-lg">
+                            <a href="/gbhome" class="btn btn-primary btn-sm float-left">Home page</a>
+                            <a href="/add-book"class="btn btn-primary btn-sm float-right">Add book manually</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <h5>Search for books in Google Books</h5>
+                    <p><small>Complete at least one of the boxes below.
+                    <br>
+                        If you complete more than one field, you will find books that meet all the criteria at the same time.</small></p>
+                    <form method="POST">
+                        <div class="form-row align-items-center">
+                            <div class="col-auto my-1">
+                                <label for="searchInAllFields" class="text-dark">Search in all fields <small>(also in extracts from the text)</small>:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="searchInAllFields"
+                                           name="searchInAllFields" placeholder="Search in all fields" aria-label="Search in all fields">
+                                </div>
+                            </div>
+                        </div>
+                        <br>
+                        <p>Search in selected fields:</p>
+                        <div class="form-row align-items-center">
+                            <div class="col-auto my-1">
+                                <label for="inTitle" class="text-dark">Title:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="inTitle"
+                                           name="inTitle" placeholder="Title" aria-label="Title">
+                                </div>
+                            </div>
+                            <div class="col-auto my-1">
+                                <label for="inAuthor" class="text-dark">Author:</label>
+                                <input type="text" class="form-control" id="inAuthor"
+                                       name="inAuthor" placeholder="Author" aria-label="Author">
+                            </div>
+                            <div class="col-auto my-1">
+                                <label for="inPublisher" class="text-dark">Publisher:</label>
+                                <input type="text" class="form-control" id="inPublisher"
+                                       name="inPublisher" placeholder="Publisher" aria-label="Publisher">
+                            </div>
+                            <div class="col-auto my-1">
+                                <label for="subject" class="text-dark">literary genre (category):</label>
+                                <input type="text" class="form-control" id="subject"
+                                       name="subject" placeholder="Category" aria-label="category">
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center">
+                            <div class="col-auto my-1">
+                                <label for="isbn">ISBN:</label>
+                                <input type="text" class="form-control" id="isbn"
+                                       name="isbn" placeholder="ISBN 10 lub 13" aria-label="ISBN 10 or 13">
+                            </div>
+                            <div class="col-auto my-1">
+                                <label for="lcnn">LCCN:</label>
+                                <input type="number" class="form-control" id="lcnn"
+                                       name="lcnn" placeholder="LCCN" aria-label="LCCN" step="1" min="0">
+                            </div>
+                            <div class="col-auto my-1">
+                                <label for="oclc">OCLC:</label>
+                                <input type="number" class="form-control" id="oclc"
+                                       name="oclc" placeholder="OCLC" aria-label="OCLC" step="1" min="0">
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg">
+                                <div id="content">
+                                <button class="btn btn-primary float-right" name="searchInGB" value="searchInGB" type="submit" onclick="loading();">Search</button>
+                                </div>
+                                <div id="loading">
+                                    <button class="btn btn-primary float-right" name="searchInGB" value="searchInGB" type="submit" aria-disabled="true" disabled>Search</button>
+
+                                    <div class="d-flex justify-content-center">
+                                        <strong>Looking for books...</strong>
+                                        <div class="spinner-border m-1 text-primary" role="status" aria-hidden="true"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+                <li class="list-group-item list-group-item">
+                    <h6 align="center">Add items to your book collection</h6>
+                    <div class="row">
+
+                        <div class="col-lg">
+                            {% if not 'found' in info  %}
+                            <button class="btn btn-primary btn-sm float-right" name="addAll" value="addAll" type="submit" aria-disabled="true" disabled>Add all</button>
+                            {% else %}
+
+                            <form method="post">
+                            <button class="btn btn-primary btn-sm float-right" name="addAll" value="addAll" type="submit" >Add all</button>
+                            </form>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if info == 'before_result' %}
+                    <p align="center"><small>Here you see the search result</small></p>
+                    {% elif info == 'no_result' %}
+                    <p align="center"><b>No results for the given criteria</b></p>
+                    {% elif info == 'error' %}
+                    <p align="center" style="color:red;"><b>An error occurred while connecting to Google Books</b></p>
+                </li>
+            </ul>
+            {% else %}
+            <p style="color:green;">{{ info }} <small>(Repeats rejected) To sort the results, click the column header.</small></p>
+            <li class="list-group-item list-group-item">
+                <div class="table-responsive "  style="height: 400px">
+
+                    <table class="table table-hover table-sm" id="myTable2">
+                        <thead>
+                        <tr>
+
+                            <th scope="col" onclick="sortTable('myTable2',0)">Title</th>
+                            <th scope="col" onclick="sortTable('myTable2',1)">Author</th>
+                            <th scope="col" onclick="sortTable('myTable2',2)">Pub date</th>
+                            <th scope="col" onclick="sortTable('myTable2',3)">ISBN</th>
+                            <th scope="col" onclick="sortTable('myTable2',4)">Page count</th>
+                            <th scope="col" onclick="sortTable('myTable2',5)">Cover</th>
+                            <th scope="col" onclick="sortTable('myTable2',6)">Lang.</th>
+
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for i in range(lenght) %}
+                        <tr>
+                            <td><b>{{ books_info_d["add_title"][i] }}</b></td>
+                            <td>{{ books_info_d["add_author"][i] }}</td>
+                            <td>{{ books_info_d["add_pub_date"][i] }}</td>
+                            <td>{{ books_info_d["clean_isbn"][i] }}</td>
+                            <td>{{ books_info_d["add_page_count"][i] }}</td>
+                            <td>{% if books_info_d["add_link_to_cover"][i] == '---' %}
+                                ---
+                                {% else %}
+                                <a href="{{ books_info_d['add_link_to_cover'][i] }}" target="_blank">link</a>
+                                {% endif %}
+                            </td>
+                            <td>{{ books_info_d["add_language"][i] }}</td>
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+            {% endif %}
+                <li class="list-group-item list-group-item">
+                    <div id="accordion">
+                        <div class="card">
+                            <div class="card-header bg-transparent " id="headingOne">
+                                <h5 class="mb-0">
+                                    <button class="btn btn-secondary btn-block btn-sm float-right" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" >
+                                        Show your book collection
+                                    </button>
+                                </h5>
+                            </div>
+                            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="card-body">
+                                    {% if empty_table %}
+                                    <h6 align="center">Your book collection is empty</h6>
+                                    {% else %}
+                                    <div class="table-responsive " style="height: 200px">
+
+                                        <table class="table table-hover table-sm" id="myTable3">
+                                            <thead>
+                                            <tr>
+                                                <th scope="col" onclick="sortTable('myTable3',0)">Title</th>
+                                                <th scope="col" onclick="sortTable('myTable3',1)">Author</th>
+                                                <th scope="col" onclick="sortTable('myTable3',2)">Pub date</th>
+                                                <th scope="col" onclick="sortTable('myTable3',3)">ISBN</th>
+                                                <th scope="col" onclick="sortTable('myTable3',4)">Page count</th>
+                                                <th scope="col" onclick="sortTable('myTable3',5)">Cover</th>
+                                                <th scope="col" onclick="sortTable('myTable3',6)">Lang.</th>
+                                                <th scope="col" >Edit</th>
+                                                <th scope="col" >Delete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {% for book in books %}
+                                            <tr>
+                                                <td><b>{{ book.title }}</b></td>
+                                                <td>{{ book.author }}</td>
+                                                <td>{{ book.publication_date }}</td>
+                                                <td>{{ book.isbn_10 }}</td>
+                                                <td>{{ book.page_count }}</td>
+                                                <td>{% if book.link_to_cover == '---' %}
+                                                    ---
+                                                    {% else %}
+                                                    <a href="{{book.link_to_cover}}" target="_blank">link</a>
+                                                    {% endif %}
+                                                </td>
+                                                <td>{{ book.publication_language }}</td>
+                                                <td><a href="/edit-book/{{ book.id }}" >Edit</a></td>
+                                                <td>
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm float-right" title="deleteBook" onClick="deleteBook({{ book.id }})">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

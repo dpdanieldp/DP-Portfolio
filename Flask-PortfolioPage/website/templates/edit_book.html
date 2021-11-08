@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block title %}Edytuj książkę{% endblock %} {% block content
+%}
+
+<div class="card-deck  p-4" >
+    <div class="card border-primary ">
+        <div class="card-header bg-transparent border-primary ">
+            <h1 align="center" class="text-dark">Your Book Collection</h1>
+        </div>
+        <div class="card-body">
+            <ul class="list-group" >
+                <li class="list-group-item list-group-item-primary">
+                    <h4 align="center">Edit book</h4>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <div class="row">
+                        <div class="col-lg">
+                            <a href="/gbhome" id="homePage" class="btn btn-primary btn-sm float-left">Home page</a>
+                            <a href="/import-from-API" id="importFromAPI" class="btn btn-primary btn-sm float-right">Import books</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="list-group-item list-group-item-secondary">
+                    <p><small>Fill in only the fields you want to change.
+                        <br>
+                        If there is more than one author - separate their names with a semicolon ;</small></p>
+                    <form method="POST" onSubmit="return confirm('Are you sure to save changes?');">
+                        <div class="form-row align-items-center">
+                            <div class="col-auto my-1">
+                                <label for="title" class="text-dark">Title:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" id="title"
+                                           name="title" placeholder="{{book.title}}" aria-label="Title">
+                                </div>
+                            </div>
+                            <div class="col-auto my-1">
+                                <label for="author" class="text-dark">Author:</label>
+                                <input type="text" class="form-control" id="author"
+                                       name="author" placeholder="{{book.author}}" aria-label="Author">
+
+                            </div>
+                            <div class="col-auto my-1">
+                                <label for="pubDate">Publication date:</label>
+                                <input type="date" class="form-control" id="pubDate"
+                                       name="pubDate" value="{{book.publication_date}}"  aria-label="Publication date" >
+                            </div>
+                        </div>
+                        <div class="form-row align-items-center">
+                            <div class="col-auto my-1">
+                                <label for="isbn">ISBN <small>(only the correct ISBN will be recorded)</small>:</label>
+                                <input type="text" class="form-control" id="isbn"
+                                       name="isbn" placeholder="{{book.isbn}}" aria-label="ISBN">
+                            </div>
+
+                        </div>
+                        <div class="form-row align-items-center">
+                            <div class="col-auto my-1">
+                                <label for="number_of_pages">Page count:</label>
+                                <input type="number" class="form-control" id="number_of_pages"
+                                       name="number_of_pages" placeholder="{{book.page_count}}" aria-label="page count" step="1" min="0">
+                            </div>
+                            <div class="col-auto my-1">
+                                <label for="link_to_cover">Link to cover:</label>
+                                <input type="url" class="form-control" id="link_to_cover"
+                                       name="link_to_cover" placeholder="{{book.link_to_cover}}" aria-label="link to cover">
+                            </div>
+                            <div class="col-auto my-1">
+                                <label for="language" class="text-dark">JLanguage:</label>
+                                <input type="text" class="form-control" id="language"
+                                       name="language" placeholder="{{book.publication_language}}" aria-label="Language">
+                            </div>
+                            <br>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-lg">
+                                <button class="btn btn-primary float-right" name="save" value="save" type="submit">Save changes</button>
+                            </div>
+                        </div>
+                    </form>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
