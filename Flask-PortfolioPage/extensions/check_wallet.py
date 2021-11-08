@@ -134,12 +134,10 @@ def check_wallet_components(user, currency):
                         db.session.commit()
 
                     if component.ticker == 'PLN' and currency != 'PLN':
-                        new_currency_data = models.BankierPLNCurrency.query.filter_by(currency=currency).first()
-                        # new_currency_pln_rate = new_currency_data.rate
-                        # new_currency_pln_price = new_currency_data.pln_price
+                        new_currency_data = models.BankierPLNCurrency.query.filter_by(currency=currency).first()                        
 
                         component.value_per_1 = round((new_currency_data.rate / new_currency_data.pln_price), 2)
-
+                        
                         new_value = component.amount * component.value_per_1
                         db.session.commit()
 
@@ -155,8 +153,6 @@ def check_wallet_components(user, currency):
                         old_currency_pln_price = old_currency_data.pln_price
                         value_in_pln = (component.amount / old_currency_pln_rate) * old_currency_pln_price
 
-
-                        # component.value = round(value_in_pln, 2)
                         component.value_per_1 = round((value_in_pln / component.amount), 2)
 
                         component.value = round((component.value_per_1 * component.amount), 2)
@@ -351,7 +347,6 @@ def check_wallet_components(user, currency):
 
 
 def check_wallet_sum_value(user):
-    # user_currency = check_user_currency(user=user)
 
     user_wallet = user.components
     current_wallet_value = 0.00
