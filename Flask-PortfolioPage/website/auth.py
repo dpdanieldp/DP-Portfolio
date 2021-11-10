@@ -80,13 +80,17 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(
-                password1, method='sha256'))
-            db.session.add(new_user)
-            db.session.commit()
-            send_confirmation_email(email)
-            flash('A confirmation link has been sent to the email address you provided during registration. '
-                  'Follow the link to complete your account registration.', category='info')
+            try:
+                send_confirmation_email(email)
+                new_user = User(email=email, first_name=first_name, password=generate_password_hash(
+                    password1, method='sha256'))
+                db.session.add(new_user)
+                db.session.commit()
+                flash('A confirmation link has been sent to the email address you provided during registration. '
+                      'Follow the link to complete your account registration.', category='info')
+            except:
+                flash('An error occurred while creating your account. Please try again later.', category='error')
+
             return redirect(url_for('auth.login'))
 
     return render_template("sign_up.html", user=current_user)
@@ -121,8 +125,11 @@ If you did not make this request then simply ignore this email and no changes wi
 @auth.route("/reset_password", methods=['GET', 'POST'])
 def reset_request():
     if current_user.is_authenticated:
-        send_change_password_email(email=current_user.email)
-        flash('An email has been sent with instructions to reset your password.', 'info')
+        try:
+            send_change_password_email(email=current_user.email)
+            flash('An email has been sent with instructions to reset your password.', 'info')
+        except:
+            flash('An error occurred while sending a password change request. Please try again later.', 'error')
         return redirect(url_for('views.ti_wallet'))
     else:
         if request.method == 'POST':
@@ -132,8 +139,12 @@ def reset_request():
             if not user:
                 flash('Email does not exists in TI.', category='error')
             else:
-                send_change_password_email(user.email)
-                flash('An email has been sent with instructions to reset your password.', 'info')
+                try:
+                    send_change_password_email(user.email)
+                    flash('An email has been sent with instructions to reset your password.', 'info')
+                except:
+                    flash('An error occurred while sending a password change request. Please try again later.', 'error')
+
                 return redirect(url_for('auth.login'))
 
         return render_template('reset_password_request.html', title='Reset Password', user=current_user)
