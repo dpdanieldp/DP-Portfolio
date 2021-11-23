@@ -18,8 +18,6 @@
 # you may assume that both n and k will always be >=1.
 
 
-from itertools import cycle, islice
-
 def josephus_survivor(n,k):
     soldiers = list(range(1,n+1))
     k -= 1
@@ -29,41 +27,7 @@ def josephus_survivor(n,k):
         idx = k % len(soldiers)
     while len(soldiers) > 1:
         soldier = soldiers[idx]
-        print(soldier)
         soldiers.remove(soldier)
-        # if idx + k <= len(soldiers)-1:
-        #     idx = idx + k
-        # else:
         idx = ((idx + k) % len(soldiers))
-
-
+        
     return soldiers[0]
-
-# def josephus_survivor(n,k):
-#     soldiers = list(range(1,n+1))
-#     idx=0
-#     soldiers_cycle = soldiers * n
-#     # for _ in range(n):
-#     #     soldiers_cycle.extend(soldiers)
-#     print(soldiers_cycle)
-#     # while len(soldiers) > 1:
-#     #     soldiers_cycle = cycle(soldiers)
-#     #     soldier = list(islice(soldiers_cycle, idx + k))
-#     #     print(list(soldiers_cycle))
-#     #     # idx = soldiers.index(soldier)
-#     #     # soldiers.remove(soldier)
-#
-#     return soldiers[0]
-
-
-
-# def josephus_survivor(n, k):
-#     soldiers = list(range(1,n+1))
-#     k -= 1 # pop automatically skips the dead guy
-#     idx = k
-#     while len(soldiers) > 1:
-#         soldiers.pop(idx)
-#         idx = (idx + k) % len(soldiers)
-#     return soldiers[0]
-
-print(josephus_survivor(11,19))
