@@ -69,8 +69,6 @@ def search_in_db(query_d):
     """
 
     empty_fields = [None, '', '---']
-    # keys = list(query_d.keys())
-    # values = list(query_d.values())
     dates = []
     for date in Book.objects.values_list('publication_date'):
         dates.append(date[0])
@@ -144,12 +142,7 @@ def delete_book_by_id(id):
     """
     Deletes book from db by id
     """
-    print('working')
-
-    # try:
     Book.objects.filter(id=int(id)).delete()
-    # except Book.DoesNotExist:
-    #     pass
 
 
 def save_temporary_info(key, info):
@@ -161,7 +154,7 @@ def save_temporary_info(key, info):
     response_to_db.save()
 
 
-#
+
 def get_temporary_info(key):
     """
     Returns temporary info by key or None if there is no info for key in db
