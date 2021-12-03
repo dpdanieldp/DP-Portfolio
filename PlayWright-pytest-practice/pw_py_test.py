@@ -1,3 +1,8 @@
+"""
+Some basic tests for the website: http://portfoliodp-env.eba-yy6bwzdq.eu-central-1.elasticbeanstalk.com/
+using playwright and pytest
+"""
+
 
 def test_start_title(page):
     page.goto("/")
