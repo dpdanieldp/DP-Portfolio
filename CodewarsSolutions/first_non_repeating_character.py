@@ -10,9 +10,10 @@
 #
 # If a string contains all repeating characters, it should return an empty string ("").
 
+
 def first_non_repeating_letter(string):
     for c in string:
         if string.lower().count(c.lower()) == 1:
             return c
     else:
-        return ''
+        return ""

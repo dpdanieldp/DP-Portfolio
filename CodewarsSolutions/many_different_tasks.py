@@ -1,5 +1,6 @@
 # Write a function that prints all prime numbers in range 1-n
 
+
 def print_prime(n):
     for num in range(1, n + 1):
         if all(num % i != 0 for i in range(2, num)):
@@ -7,6 +8,7 @@ def print_prime(n):
 
 
 # Write a sort function to sort numbers in list. Do not use built-in sort()
+
 
 def my_sort(array):
     sorted_lst = []
@@ -19,6 +21,7 @@ def my_sort(array):
 
 # Write a function to print elements from Fibonacci series up to n-th element
 
+
 def fibonacci(n):
     a, b = 0, 1
     for i in range(n):
@@ -28,6 +31,7 @@ def fibonacci(n):
 
 # Write a function to print elements from list in reversed order
 
+
 def reversed(array):
     while array:
         print(array[-1])
@@ -36,17 +40,20 @@ def reversed(array):
 
 #  Write a function to check if word is a palindrome or not
 
+
 def if_palindrome(word):
     return True if word.lower() == word[::-1].lower() else False
 
 
 # Write a function to print set of duplicates in list
 
+
 def duplicates(array):
     print(set([x for x in array if array.count(x) > 1]))
 
 
 # Write a function to print number of words in given sentence
+
 
 def count_words(sentence):
     print(len(sentence.split()))
@@ -76,5 +83,3 @@ def search(x, given_array):
         return False
     else:
         return "Given array is empty."
-
-

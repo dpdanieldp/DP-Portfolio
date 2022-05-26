@@ -23,32 +23,37 @@
 #
 # Complete the method to solve the expression to find the value of the unknown rune. The method takes a string as a paramater repressenting the expression and will return an int value representing the unknown rune or -1 if no such rune exists.
 
+
 def solve_runes(runes):
-    for o in '+-*':
+    for o in "+-*":
         if o in runes:
             operator = o
             op_idx = runes.index(o)
     equals_idx = runes.index("=")
-    runes = runes[:equals_idx] + '=' + runes[equals_idx:]
-    one = runes[:op_idx].strip('-')
-    two = runes[(op_idx+1):equals_idx].strip('-')
-    three = runes[(equals_idx+2):].strip('-')
+    runes = runes[:equals_idx] + "=" + runes[equals_idx:]
+    one = runes[:op_idx].strip("-")
+    two = runes[(op_idx + 1) : equals_idx].strip("-")
+    three = runes[(equals_idx + 2) :].strip("-")
 
-    if (one == '??' or (len(one) > 1 and one.startswith('?'))
-            or two == '??' or (len(two) > 1 and two.startswith('?'))
-            or three == '??' or (len(three) > 1 and three.startswith('?'))):
+    if (
+        one == "??"
+        or (len(one) > 1 and one.startswith("?"))
+        or two == "??"
+        or (len(two) > 1 and two.startswith("?"))
+        or three == "??"
+        or (len(three) > 1 and three.startswith("?"))
+    ):
 
-        numbers = sorted(set('123456789') - set(runes))
+        numbers = sorted(set("123456789") - set(runes))
         for i in numbers:
             runes1 = runes.replace("?", i)
             if eval(runes1):
                 return int(i)
     else:
-        numbers = sorted(set('0123456789') - set(runes))
+        numbers = sorted(set("0123456789") - set(runes))
         for i in numbers:
             runes1 = runes.replace("?", i)
 
             if eval(runes1):
                 return int(i)
     return -1
-

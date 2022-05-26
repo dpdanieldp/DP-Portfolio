@@ -1,8 +1,8 @@
-import requests
-from datetime import datetime
 import random
-from website import db
-from website import models
+from datetime import datetime
+
+import requests
+from website import db, models
 
 
 def polygon_check(ticker_list):
@@ -14,31 +14,34 @@ def polygon_check(ticker_list):
     for i in ticker_list:
         ticker = i
         keys_to_use = list(set(api_keys_list) - set(used_keys))
-        if len(keys_to_use) > 0:            
+        if len(keys_to_use) > 0:
             api_key = random.choice(list(set(api_keys_list) - set(used_keys)))
             used_keys.append(api_key)
         else:
             api_key = random.choice(api_keys_list)
             used_keys.append(api_key)
-            
-        if 'X:' in i:
-            api_url = f'https://api.polygon.io/v2/aggs/ticker/{ticker}/prev?adjusted=true&apiKey={api_key}'
+
+        if "X:" in i:
+            api_url = f"https://api.polygon.io/v2/aggs/ticker/{ticker}/prev?adjusted=true&apiKey={api_key}"
             data = requests.get(api_url).json()
             response_dict[ticker] = []
-            response_dict[ticker].append(float(data['results'][0]['c']))
-            date_timestamp = data['results'][0]['t']
-            date_str = datetime.fromtimestamp(date_timestamp // 1000).strftime("%Y-%m-%d %H:%M")
+            response_dict[ticker].append(float(data["results"][0]["c"]))
+            date_timestamp = data["results"][0]["t"]
+            date_str = datetime.fromtimestamp(date_timestamp // 1000).strftime(
+                "%Y-%m-%d %H:%M"
+            )
             response_dict[ticker].append(date_str)
 
         else:
-            api_url = f'https://api.polygon.io/v2/aggs/ticker/{ticker}/prev?adjusted=true&apiKey={api_key}'
+            api_url = f"https://api.polygon.io/v2/aggs/ticker/{ticker}/prev?adjusted=true&apiKey={api_key}"
             data = requests.get(api_url).json()
             response_dict[ticker] = []
-            response_dict[ticker].append(float(data['results'][0]['c']))
-            date_timestamp = data['results'][0]['t']
-            date_str = datetime.fromtimestamp(date_timestamp // 1000).strftime("%Y-%m-%d %H:%M")
+            response_dict[ticker].append(float(data["results"][0]["c"]))
+            date_timestamp = data["results"][0]["t"]
+            date_str = datetime.fromtimestamp(date_timestamp // 1000).strftime(
+                "%Y-%m-%d %H:%M"
+            )
             response_dict[ticker].append(date_str)
-
 
     return response_dict
 
@@ -74,18 +77,19 @@ def polygon_check_or_not(ticker_list):
             if ticker_info:
                 ticker_info.price = list_of_prices_dates_from_polygon[index][0]
                 ticker_info.date_check = date_str
-                ticker_info.date_info = list_of_prices_dates_from_polygon[index][1]                
+                ticker_info.date_info = list_of_prices_dates_from_polygon[index][1]
                 db.session.commit()
             else:
-                new_info = models.PolygonCheckedTicker(ticker=i,
-                                                       price=list_of_prices_dates_from_polygon[index][0],
-                                                       date_check=date_str,
-                                                       date_info=list_of_prices_dates_from_polygon[index][1])
+                new_info = models.PolygonCheckedTicker(
+                    ticker=i,
+                    price=list_of_prices_dates_from_polygon[index][0],
+                    date_check=date_str,
+                    date_info=list_of_prices_dates_from_polygon[index][1],
+                )
                 db.session.add(new_info)
                 db.session.commit()
 
         dict_from_polygon.update(dict_from_db)
-        
 
         return dict_from_polygon
 

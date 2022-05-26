@@ -7,9 +7,10 @@
 # For example: if str is "arrb6???4xxbl5???eee5" then your program should return true because
 # there are exactly 3 question marks between 6 and 4, and 3 question marks between 5 and 5 at the end of the string.
 
+
 def QuestionsMarks(strParam):
     digits_idxs = [i for i, c in enumerate(strParam) if c.isdigit()]
-    if len(digits_idxs)<2:
+    if len(digits_idxs) < 2:
         return False
     start = 0
     lst_start = []
@@ -21,8 +22,8 @@ def QuestionsMarks(strParam):
         start += 1
     if len(lst_start) < 1:
         return False
-    for start, stop in zip(lst_start,lst_stop):
-        if strParam[(start+1):stop].count('?') != 3:
+    for start, stop in zip(lst_start, lst_stop):
+        if strParam[(start + 1) : stop].count("?") != 3:
             return False
 
     return True

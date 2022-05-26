@@ -14,12 +14,13 @@
 # Furthermore, the input string may be empty and/or not contain any parentheses at all.
 # Do not treat other forms of brackets as parentheses (e.g. [], {}, <>).
 
+
 def valid_parentheses(string):
     if len(string) == 0:
         return True
     if "(" in string and ")" in string:
-        idx_left = [i for i, c in enumerate(string) if c == '(']
-        idx_right = [i for i, c in enumerate(string) if c == ')']
+        idx_left = [i for i, c in enumerate(string) if c == "("]
+        idx_right = [i for i, c in enumerate(string) if c == ")"]
 
         if len(idx_left) == len(idx_right):
             for i in range(len(idx_left)):

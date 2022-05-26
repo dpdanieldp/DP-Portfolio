@@ -11,19 +11,20 @@
 
 import re
 
-def my_very_own_split(string, delimiter = None):
-    if delimiter == '':
+
+def my_very_own_split(string, delimiter=None):
+    if delimiter == "":
         raise ValueError
-    if string == '':
-        string = ' '
-        delimiter = ' '
+    if string == "":
+        string = " "
+        delimiter = " "
     if delimiter is None:
-        delimiter = ' '
-        string = re.sub(r'\s+', ' ', string)
+        delimiter = " "
+        string = re.sub(r"\s+", " ", string)
         print(string)
     if string[-len(delimiter)] != delimiter:
         string += delimiter
     while string:
-        word = string[:string.index(delimiter)]
+        word = string[: string.index(delimiter)]
         yield word
-        string = string.replace(word + delimiter, '', 1)
+        string = string.replace(word + delimiter, "", 1)

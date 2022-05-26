@@ -1,6 +1,7 @@
+from datetime import datetime
+
 from website import db
 from website.models import Book, TemporaryInfo
-from datetime import datetime
 
 
 def check_if_empty_table():
@@ -18,8 +19,8 @@ def check_if_isbns_in_db(l_isbn):
     Function checks if ISBNs from list are already present in db
     """
     l_of_isbns_without_none = list(set(l_isbn))
-    if '---' in l_of_isbns_without_none:
-        l_of_isbns_without_none.remove('---')
+    if "---" in l_of_isbns_without_none:
+        l_of_isbns_without_none.remove("---")
 
     books = Book.query.filter(Book.isbn.in_(l_of_isbns_without_none)).all()
 
@@ -35,24 +36,30 @@ def add_books(books_info_d):
     """
     for i in range(len(books_info_d["add_title"])):
         try:
-            date = datetime.strptime(books_info_d["add_pub_date"][i], '%Y-%m-%d')
+            date = datetime.strptime(books_info_d["add_pub_date"][i], "%Y-%m-%d")
         except ValueError:
             try:
-                date = datetime.strptime(books_info_d["add_pub_date"][i], '%Y-%m').date()
+                date = datetime.strptime(
+                    books_info_d["add_pub_date"][i], "%Y-%m"
+                ).date()
             except ValueError:
                 try:
-                    date = datetime.strptime(books_info_d["add_pub_date"][i], '%Y').date()
+                    date = datetime.strptime(
+                        books_info_d["add_pub_date"][i], "%Y"
+                    ).date()
                 except:
-                    date = datetime.strptime('0001-01-01', '%Y-%m-%d')
+                    date = datetime.strptime("0001-01-01", "%Y-%m-%d")
         finally:
 
-            book_info = Book(title=books_info_d["add_title"][i],
-                             author=books_info_d["add_author"][i],
-                             publication_date=date,
-                             isbn=books_info_d["clean_isbn"][i],
-                             page_count=books_info_d["add_page_count"][i],
-                             link_to_cover=books_info_d["add_link_to_cover"][i],
-                             publication_language=books_info_d["add_language"][i])
+            book_info = Book(
+                title=books_info_d["add_title"][i],
+                author=books_info_d["add_author"][i],
+                publication_date=date,
+                isbn=books_info_d["clean_isbn"][i],
+                page_count=books_info_d["add_page_count"][i],
+                link_to_cover=books_info_d["add_link_to_cover"][i],
+                publication_language=books_info_d["add_language"][i],
+            )
 
             db.session.add(book_info)
 
@@ -66,8 +73,8 @@ def search_in_db(query_d):
     If no dates were passed in query_d all dates existing in db are passed to  Book.publication_date.between([start_date, end_date])
     If only start_date was selected- end_date is latest date from db; if only end_date was selected- start_date is earliest date from db
     """
-    
-    empty_fields = [None, '', '---']
+
+    empty_fields = [None, "", "---"]
     # keys = list(query_d.keys())
     # values = list(query_d.values())
     dates = []
@@ -76,27 +83,28 @@ def search_in_db(query_d):
     dates2 = list(set(dates))
     sorted_dates = sorted(dates2)
 
-    like_title = '%'
-    like_author = '%'
-    like_publication_language = '%'
+    like_title = "%"
+    like_author = "%"
+    like_publication_language = "%"
     like_dates = [sorted_dates[0], sorted_dates[-1]]
 
     if query_d["searchTitle"] not in empty_fields:
-        like_title = '%' + query_d["searchTitle"] + '%'
+        like_title = "%" + query_d["searchTitle"] + "%"
     if query_d["searchAuthor"] not in empty_fields:
-        like_author = '%' + query_d["searchAuthor"] + '%'
+        like_author = "%" + query_d["searchAuthor"] + "%"
     if query_d["searchLanguage"] not in empty_fields:
-        like_publication_language = '%' + query_d["searchLanguage"] + '%'
+        like_publication_language = "%" + query_d["searchLanguage"] + "%"
     if query_d["selectStartDate"] not in empty_fields:
-        like_dates[0] = datetime.strptime(query_d["selectStartDate"], '%Y-%m-%d').date()
+        like_dates[0] = datetime.strptime(query_d["selectStartDate"], "%Y-%m-%d").date()
     if query_d["selectEndDate"] not in empty_fields:
-        like_dates[1] = datetime.strptime(query_d["selectEndDate"], '%Y-%m-%d').date()
+        like_dates[1] = datetime.strptime(query_d["selectEndDate"], "%Y-%m-%d").date()
 
     books = Book.query.filter(
         Book.title.like(like_title),
         Book.author.like(like_author),
         Book.publication_language.like(like_publication_language),
-        Book.publication_date.between(like_dates[0], like_dates[1])).all()
+        Book.publication_date.between(like_dates[0], like_dates[1]),
+    ).all()
 
     if len(books) == 0:
         return False
@@ -107,22 +115,26 @@ def search_in_db(query_d):
 def overwrite_books(books_info_d, old_isbn_l):
     """
     Overwrites book or books by ISBN in db.
-    
+
     If old_isbn_l was passed (as not empty list) function overwrites book in db by this ISBN
     (used only when user wants to edit book in db changing it's ISBN to ISBN of a book already present in db)
     """
-    
+
     for i in range(len(books_info_d["add_title"])):
         try:
-            date = datetime.strptime(books_info_d["add_pub_date"][i], '%Y-%m-%d')
+            date = datetime.strptime(books_info_d["add_pub_date"][i], "%Y-%m-%d")
         except ValueError:
             try:
-                date = datetime.strptime(books_info_d["add_pub_date"][i], '%Y-%m').date()
+                date = datetime.strptime(
+                    books_info_d["add_pub_date"][i], "%Y-%m"
+                ).date()
             except ValueError:
                 try:
-                    date = datetime.strptime(books_info_d["add_pub_date"][i], '%Y').date()
+                    date = datetime.strptime(
+                        books_info_d["add_pub_date"][i], "%Y"
+                    ).date()
                 except:
-                    date = datetime.strptime('0001-01-01', '%Y-%m-%d')
+                    date = datetime.strptime("0001-01-01", "%Y-%m-%d")
         finally:
             if len(old_isbn_l) == 0:
                 book = Book.query.filter_by(isbn=books_info_d["clean_isbn"][i]).first()
@@ -149,11 +161,12 @@ def delete_book_by_id(id):
         db.session.delete(book)
         db.session.commit()
 
+
 def save_temporary_info(key, info):
     """
     Saves temporary info by key
     """
-    
+
     temp = TemporaryInfo.query.filter_by(key=key).first()
     if not temp:
         response_to_db = TemporaryInfo(key=key, info=info)
@@ -162,6 +175,7 @@ def save_temporary_info(key, info):
     else:
         temp.response = info
         db.session.commit()
+
 
 def get_temporary_info(key):
     """
@@ -174,6 +188,3 @@ def get_temporary_info(key):
     else:
         info = result.info
         return info
-
-
-

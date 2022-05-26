@@ -18,15 +18,11 @@
 # beeramid(1500, 2); // should === 12
 # beeramid(5000, 3); // should === 16
 
+
 def beeramid(bonus, price):
     no_of_beers = bonus // price
     levels = 1
-    while no_of_beers >= levels ** 2:
-        no_of_beers -= levels ** 2
+    while no_of_beers >= levels**2:
+        no_of_beers -= levels**2
         levels += 1
     return levels - 1
-
-
-
-
-

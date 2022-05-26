@@ -14,6 +14,7 @@
 # # 12! = 479001600 --> 2 trailing zeros
 # Hint: You're not meant to calculate the factorial. Find another way to find the number of zeros.
 
+
 def zeros(n):
     if n < 3:
         return n

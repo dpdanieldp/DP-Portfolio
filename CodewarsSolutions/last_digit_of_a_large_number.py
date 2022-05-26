@@ -14,5 +14,6 @@
 # last_digit(10, 10 ** 10)        # returns 0
 # last_digit(2 ** 200, 2 ** 300)  # returns 6
 
+
 def last_digit(n1, n2):
     return pow(n1, n2, 10)

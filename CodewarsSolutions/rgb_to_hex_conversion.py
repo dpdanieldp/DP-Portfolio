@@ -16,13 +16,13 @@ rgb(148, 0, 211) # returns 9400D3
 
 
 def rgb(r, g, b):
-    str_to_return = ''
+    str_to_return = ""
     for i in (r, g, b):
         if i < 0:
             i = 0
         elif i > 255:
             i = 255
-        element = str(hex(i)).replace('0x', '').upper()
+        element = str(hex(i)).replace("0x", "").upper()
         if len(element) == 1:
             element = "0" + element
         str_to_return += element

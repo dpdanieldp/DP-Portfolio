@@ -7,6 +7,7 @@
 # Example
 # wave("hello") => ["Hello", "hEllo", "heLlo", "helLo", "hellO"]
 
+
 def wave(people):
     str_list = [c for c in people]
     idxs_without_spaces = [i for i, c in enumerate(people) if not c.isspace()]
@@ -14,5 +15,5 @@ def wave(people):
     for i in idxs_without_spaces:
         wave = str_list.copy()
         wave[i] = wave[i].upper()
-        wave_lst.append(''.join(wave))
+        wave_lst.append("".join(wave))
     return wave_lst

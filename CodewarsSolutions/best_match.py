@@ -23,10 +23,15 @@
 # [output] an integer
 # Index of the best match.
 
+
 def best_match(goals1, goals2):
     differences = [goals1[i] - goals2[i] for i in range(len(goals1))]
     idx_lowest_dif = [i for i, s in enumerate(differences) if s == min(differences)]
     zam_hi_scores_low_dif = [goals2[i] for i in idx_lowest_dif]
-    idx_to_ret = [i for i, s in enumerate(goals2) if i in idx_lowest_dif and s == max(zam_hi_scores_low_dif)]
+    idx_to_ret = [
+        i
+        for i, s in enumerate(goals2)
+        if i in idx_lowest_dif and s == max(zam_hi_scores_low_dif)
+    ]
 
     return idx_to_ret[0]

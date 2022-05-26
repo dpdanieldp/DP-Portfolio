@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('gbapi', '0001_initial'),
+        ("gbapi", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='book',
-            options={'ordering': ('title',)},
+            name="book",
+            options={"ordering": ("title",)},
         ),
     ]

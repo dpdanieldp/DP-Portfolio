@@ -18,16 +18,16 @@
 # you may assume that both n and k will always be >=1.
 
 
-def josephus_survivor(n,k):
-    soldiers = list(range(1,n+1))
+def josephus_survivor(n, k):
+    soldiers = list(range(1, n + 1))
     k -= 1
-    if k <= len(soldiers)-1:
+    if k <= len(soldiers) - 1:
         idx = k
     else:
         idx = k % len(soldiers)
     while len(soldiers) > 1:
         soldier = soldiers[idx]
         soldiers.remove(soldier)
-        idx = ((idx + k) % len(soldiers))
-        
+        idx = (idx + k) % len(soldiers)
+
     return soldiers[0]

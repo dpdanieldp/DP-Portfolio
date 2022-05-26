@@ -7,29 +7,44 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Book',
+            name="Book",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.TextField()),
-                ('author', models.TextField()),
-                ('publication_date', models.DateField()),
-                ('isbn', models.TextField(max_length=30)),
-                ('page_count', models.TextField(max_length=10)),
-                ('link_to_cover', models.SlugField()),
-                ('publication_language', models.TextField(max_length=10)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.TextField()),
+                ("author", models.TextField()),
+                ("publication_date", models.DateField()),
+                ("isbn", models.TextField(max_length=30)),
+                ("page_count", models.TextField(max_length=10)),
+                ("link_to_cover", models.SlugField()),
+                ("publication_language", models.TextField(max_length=10)),
             ],
         ),
         migrations.CreateModel(
-            name='TemporaryInfo',
+            name="TemporaryInfo",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('key', models.TextField()),
-                ('info', models.TextField()),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("key", models.TextField()),
+                ("info", models.TextField()),
             ],
         ),
     ]

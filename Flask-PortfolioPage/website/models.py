@@ -1,13 +1,14 @@
-from . import db, ma
 from flask_login import UserMixin
 from sqlalchemy.sql import func
 
+from . import db, ma
 
 
 class LastCalls(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     source = db.Column(db.String(10))
     last_call = db.Column(db.String(30))
+
 
 class PolygonCheckedTicker(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -16,11 +17,13 @@ class PolygonCheckedTicker(db.Model):
     date_info = db.Column(db.String(100))
     date_check = db.Column(db.String(100))
 
+
 class PolygonTicker(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ticker = db.Column(db.String(100))
     name = db.Column(db.String(1000))
     date = db.Column(db.String(100))
+
 
 class BankierPLNCurrency(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -48,13 +51,15 @@ class BankierStockBond(db.Model):
     price = db.Column(db.Float())
     change = db.Column(db.String(20))
     date = db.Column(db.String(20))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
 
 class WalletValue(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     sum_value = db.Column(db.Float())
     date = db.Column(db.DateTime(timezone=True), default=func.now())
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
 
 class Wallet(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -67,7 +72,8 @@ class Wallet(db.Model):
     percentage_in_wallet = db.Column(db.Float())
     category = db.Column(db.String(100))
     date = db.Column(db.String(30))
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
+
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
@@ -75,7 +81,8 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     email_confirmed = db.Column(db.Boolean, nullable=False, default=False)
-    components = db.relationship('Wallet')
+    components = db.relationship("Wallet")
+
 
 class Book(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -97,4 +104,3 @@ class TemporaryInfo(db.Model):
 class BookSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Book
-
