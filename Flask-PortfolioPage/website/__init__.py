@@ -48,9 +48,18 @@ def create_app():
     application.register_blueprint(views, url_prefix="/")
     application.register_blueprint(auth, url_prefix="/")
 
-    from .models import (BankierCommodity, BankierPLNCurrency,
-                         BankierStockBond, Book, BookSchema, LastCalls,
-                         PolygonTicker, TemporaryInfo, User, Wallet)
+    from .models import (
+        BankierCommodity,
+        BankierPLNCurrency,
+        BankierStockBond,
+        Book,
+        BookSchema,
+        LastCalls,
+        PolygonTicker,
+        TemporaryInfo,
+        User,
+        Wallet,
+    )
 
     create_database(application)
 

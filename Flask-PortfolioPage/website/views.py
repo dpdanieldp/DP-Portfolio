@@ -2,11 +2,26 @@ import ast
 import datetime
 import json
 
-from extensions import (bankier_btfs, check_wallet, gb_api_operations,
-                        gb_db_operations, polygon_tickersnames, sort_book_info,
-                        ti_wallet_report)
-from flask import (Blueprint, flash, jsonify, redirect, render_template,
-                   request, send_file, session, url_for)
+from extensions import (
+    bankier_btfs,
+    check_wallet,
+    gb_api_operations,
+    gb_db_operations,
+    polygon_tickersnames,
+    sort_book_info,
+    ti_wallet_report,
+)
+from flask import (
+    Blueprint,
+    flash,
+    jsonify,
+    redirect,
+    render_template,
+    request,
+    send_file,
+    session,
+    url_for,
+)
 from flask_login import current_user, login_required
 from isbnlib import clean, is_isbn10, is_isbn13
 from sqlalchemy import not_

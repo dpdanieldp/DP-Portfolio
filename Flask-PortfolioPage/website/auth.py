@@ -1,8 +1,16 @@
 import datetime
 import os
 
-from flask import (Blueprint, abort, flash, redirect, render_template, request,
-                   session, url_for)
+from flask import (
+    Blueprint,
+    abort,
+    flash,
+    redirect,
+    render_template,
+    request,
+    session,
+    url_for,
+)
 from flask_login import current_user, login_required, login_user, logout_user
 from flask_mail import Message
 from itsdangerous import URLSafeTimedSerializer
